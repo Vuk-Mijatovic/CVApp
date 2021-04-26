@@ -12,11 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.internal.Util;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> {
-    private ArrayList<Book> books;
+    private ArrayList<Volume> books;
 
-    public BookAdapter(ArrayList<Book> books) {
+    public BookAdapter(ArrayList<Volume> books) {
         this.books = books;
     }
 
@@ -30,11 +33,23 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull BookHolder holder, int position) {
-        Book currentBook = books.get(position);
-        holder.authorView.setText(currentBook.getAuthor());
-        holder.titleView.setText(currentBook.getTitle());
-        holder.descriptionView.setText(currentBook.getDescription());
-        Picasso.get().load(currentBook.getImageUrl()).into(holder.imageView);
+        Volume currentBook = books.get(position);
+
+        holder.titleView.setText(currentBook.getVolumeInfo().getTitle());
+
+        List<String> authorsList = currentBook.getVolumeInfo().getAuthors();
+
+        if (authorsList != null) {
+            String authors = authorsList.get(0);
+            for (int i = 1; i < authorsList.size(); i++ ) {
+                authors = authors + ", " + authorsList.get(i);
+            }
+             holder.authorView.setText(authors);
+        }
+
+        holder.descriptionView.setText(currentBook.getVolumeInfo().getDescription());
+
+        //todo add images
     }
 
     @Override
