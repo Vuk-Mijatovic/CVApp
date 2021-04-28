@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -55,7 +55,6 @@
                 android:textAppearance="?attr/textAppearanceBody2"
                 tools:text="Lorem ipsum dolor sit amet, nec ne integre moderatius disputando, populo consulatu constituto cum ad, ne eos odio facilis eloquentiam. An pro aliquip mediocrem, vix offendit appetere ut. At nam idque nulla scripserit, nulla laudem saperet his eu, at has consul legere. Regione oporteat principes cum ex, melius invenire in pro. Ex sale habeo omittantur ius, te has deserunt erroribus, persius civibus expetendis eos an. Ius forensibus dissentiet et.
 " />
-
 
         </LinearLayout>
 

@@ -1,5 +1,6 @@
 package com.example.cvapp;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +18,8 @@ import java.util.List;
 import okhttp3.internal.Util;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> {
-    private ArrayList<Volume> books;
+    private List<Volume> books = new ArrayList<>();
 
-    public BookAdapter(ArrayList<Volume> books) {
-        this.books = books;
-    }
 
     @NonNull
     @Override
@@ -33,6 +31,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull BookHolder holder, int position) {
+        Log.i("From ViewHolder: ", "I am CALLED");
         Volume currentBook = books.get(position);
 
         holder.titleView.setText(currentBook.getVolumeInfo().getTitle());
@@ -52,9 +51,14 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> {
         //todo add images
     }
 
+    public void setResults(List<Volume> results) {
+        this.books = results;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
-        return 0;
+        return books.size() ;
     }
 
     class BookHolder extends RecyclerView.ViewHolder {
