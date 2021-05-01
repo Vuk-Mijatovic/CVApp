@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CVApp">
         <activity
-            android:name=".BookListing"
+            android:name=".BookListingActivity"
             android:theme="@style/Theme.CVApp"
             android:parentActivityName=".MainActivity" />
         <activity

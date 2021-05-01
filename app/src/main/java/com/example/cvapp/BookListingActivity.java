@@ -7,13 +7,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.cvapp.MainActivity;
 import com.example.cvapp.R;
 
 import static java.security.AccessController.getContext;
 
-public class BookListing extends MainActivity {
+public class BookListingActivity extends MainActivity {
 
     private BookSearhViewModel bookSearhViewModel;
     private BookAdapter adapter;
@@ -38,6 +42,20 @@ public class BookListing extends MainActivity {
                 }
             }
         });
-        bookSearhViewModel.searchVolumes("guitar");
+
+        Button searchButton = findViewById(R.id.search_button);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText searchTextView = findViewById(R.id.text_input);
+                String keyWord = searchTextView.getText().toString().trim();
+
+                if (keyWord == null || keyWord.isEmpty()) {
+                    Toast.makeText(BookListingActivity.this, "Please enter a search term.", Toast.LENGTH_SHORT).show();
+                } else {
+                    bookSearhViewModel.searchVolumes(keyWord);
+                }
+            }
+        });
     }
 }
