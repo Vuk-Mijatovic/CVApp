@@ -47,8 +47,10 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> {
         }
 
         holder.descriptionView.setText(currentBook.getVolumeInfo().getDescription());
-
-        //todo add images
+        String imageLink = currentBook.getVolumeInfo().getImageLinks().getThumbnail()
+                .replace("http://", "https://");
+        Picasso.get().load(imageLink)
+                .fit().into(holder.imageView);
     }
 
     public void setResults(List<Volume> results) {
@@ -57,9 +59,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> {
     }
 
     @Override
-    public int getItemCount() {
-        return books.size() ;
-    }
+    public int getItemCount() { return books.size(); }
 
     class BookHolder extends RecyclerView.ViewHolder {
         private final TextView authorView;
