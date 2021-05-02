@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +22,8 @@ public class BookListingActivity extends MainActivity {
 
     private BookSearhViewModel bookSearhViewModel;
     private BookAdapter adapter;
+    private LinearLayoutManager layoutManager;
+    int startIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +32,8 @@ public class BookListingActivity extends MainActivity {
 
         adapter = new BookAdapter();
         RecyclerView recyclerView = findViewById(R.id.book_list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
         bookSearhViewModel = new ViewModelProvider(this).get(BookSearhViewModel.class);
@@ -39,6 +43,7 @@ public class BookListingActivity extends MainActivity {
             public void onChanged(VolumesResponse volumesResponse) {
                 if (volumesResponse != null) {
                     adapter.setResults(volumesResponse.getItems());
+                    adapter.notifyDataSetChanged();
                 }
             }
         });
@@ -49,12 +54,21 @@ public class BookListingActivity extends MainActivity {
             public void onClick(View v) {
                 EditText searchTextView = findViewById(R.id.text_input);
                 String keyWord = searchTextView.getText().toString().trim();
-
+                startIndex = 0;
+                recyclerView.clearOnScrollListeners();
                 if (keyWord == null || keyWord.isEmpty()) {
                     Toast.makeText(BookListingActivity.this, "Please enter a search term.", Toast.LENGTH_SHORT).show();
                 } else {
-                    bookSearhViewModel.searchVolumes(keyWord);
+                    bookSearhViewModel.searchVolumes(keyWord, startIndex);
                 }
+
+                EndlessOnScrollListener endlessOnScrollListener = new EndlessOnScrollListener(layoutManager) {
+                    @Override
+                    protected void onLoadMore() {
+                        //TODO fiinish implementing onScrollListner
+                    }
+                };
+                recyclerView.addOnScrollListener(endlessOnScrollListener);
             }
         });
     }

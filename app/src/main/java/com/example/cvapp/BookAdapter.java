@@ -31,7 +31,6 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull BookHolder holder, int position) {
-        Log.i("From ViewHolder: ", "I am CALLED");
         Volume currentBook = books.get(position);
 
         holder.titleView.setText(currentBook.getVolumeInfo().getTitle());

@@ -9,6 +9,8 @@ public interface BookSearchService {
     @GET("/books/v1/volumes")
     Call<VolumesResponse> searchVolumes(
             @Query("q") String query,
-            @Query("key") String apiKey
+            @Query("key") String apiKey,
+            @Query("startIndex") int startIndex,
+            @Query("maxResults") int maxResults
     );
 }
