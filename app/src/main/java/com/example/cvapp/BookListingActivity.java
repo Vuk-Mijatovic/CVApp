@@ -56,6 +56,11 @@ public class BookListingActivity extends MainActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (adapter != null) {
+                    adapter.clear();
+                }
+
                 EditText searchTextView = findViewById(R.id.text_input);
                 String keyWord = searchTextView.getText().toString().trim();
                 startIndex = 0;
