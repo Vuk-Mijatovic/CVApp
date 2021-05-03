@@ -19,7 +19,11 @@ public class VolumeInfo {
 
     private  String description;
 
+    private ReadingModes readingModes;
 
+    public ReadingModes getReadingModes() {
+        return readingModes;
+    }
 
     public String getDescription() {
         return description;

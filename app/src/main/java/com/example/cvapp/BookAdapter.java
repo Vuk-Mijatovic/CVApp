@@ -49,14 +49,13 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> {
         }
 
         holder.descriptionView.setText(currentBook.getVolumeInfo().getDescription());
-        String imageLink = currentBook.getVolumeInfo().getImageLinks().getThumbnail()
+        if (currentBook.getVolumeInfo().getReadingModes().isImage()) {
+            String imageLink = currentBook.getVolumeInfo().getImageLinks().getThumbnail()
                 .replace("http://", "https://");
-        if (imageLink != null) {
         Picasso.get().load(imageLink)
                 .fit().into(holder.imageView);
         } else {
-            Picasso.get().load("https://thumbs.dreamstime.com/z/grunge-textured-not-available-stamp-seal-not-available-stamp-seal-watermark-distress-style-blue-vector-rubber-print-not-138792800.jpg")
-                    .fit().into(holder.imageView);
+           holder.imageView.setImageResource(R.drawable.na);
         }
 
     }

@@ -75,7 +75,6 @@ public class BookListingActivity extends MainActivity {
                     @Override
                     protected void onLoadMore() {
                         startIndex = startIndex + 20;
-                        Log.i("Start index is: ", String.valueOf(startIndex));
                         bookSearhViewModel.searchVolumes(keyWord, startIndex);
                     }
                 };
