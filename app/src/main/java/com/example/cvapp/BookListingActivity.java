@@ -16,6 +16,9 @@ import android.widget.Toast;
 import com.example.cvapp.MainActivity;
 import com.example.cvapp.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static java.security.AccessController.getContext;
 
 public class BookListingActivity extends MainActivity {
@@ -24,13 +27,14 @@ public class BookListingActivity extends MainActivity {
     private BookAdapter adapter;
     private LinearLayoutManager layoutManager;
     int startIndex;
+    List<Volume> books = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_listing);
 
-        adapter = new BookAdapter();
+        adapter = new BookAdapter(books);
         RecyclerView recyclerView = findViewById(R.id.book_list);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -42,7 +46,7 @@ public class BookListingActivity extends MainActivity {
             @Override
             public void onChanged(VolumesResponse volumesResponse) {
                 if (volumesResponse != null) {
-                    adapter.setResults(volumesResponse.getItems());
+                    books.addAll(volumesResponse.getItems());
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -65,7 +69,9 @@ public class BookListingActivity extends MainActivity {
                 EndlessOnScrollListener endlessOnScrollListener = new EndlessOnScrollListener(layoutManager) {
                     @Override
                     protected void onLoadMore() {
-                        //TODO fiinish implementing onScrollListner
+                        startIndex = startIndex + 20;
+                        Log.i("Start index is: ", String.valueOf(startIndex));
+                        bookSearhViewModel.searchVolumes(keyWord, startIndex);
                     }
                 };
                 recyclerView.addOnScrollListener(endlessOnScrollListener);

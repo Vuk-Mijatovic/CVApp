@@ -18,8 +18,11 @@ import java.util.List;
 import okhttp3.internal.Util;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> {
-    private List<Volume> books = new ArrayList<>();
+    private List<Volume> books;
 
+    public BookAdapter(List<Volume> books) {
+        this.books = books;
+    }
 
     @NonNull
     @Override
