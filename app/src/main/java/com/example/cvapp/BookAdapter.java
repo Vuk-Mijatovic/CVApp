@@ -63,7 +63,6 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> {
         } else {
            holder.imageView.setImageResource(R.drawable.na);
         }
-
     }
 
     public void setResults(List<Volume> results) {
@@ -71,10 +70,8 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> {
         notifyDataSetChanged();
     }
 
-
     @Override
     public int getItemCount() { return books.size(); }
-
 
     public void clear() {
         int size = books.size();
@@ -83,8 +80,6 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> {
             notifyItemRangeRemoved(0, size);
         }
     }
-
-
 
     class BookHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView authorView;
@@ -99,9 +94,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> {
             this.descriptionView = itemView.findViewById(R.id.description_view);
             this.imageView = itemView.findViewById(R.id.imageView);
             itemView.setOnClickListener(this);
-
         }
-
 
         @Override
         public void onClick(View v) {
