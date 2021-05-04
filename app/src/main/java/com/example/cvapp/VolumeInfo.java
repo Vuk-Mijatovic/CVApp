@@ -7,8 +7,7 @@ import java.util.List;
 
 public class VolumeInfo {
 
-    @SerializedName("title")
-    @Expose
+
     private  String title;
 
     private  List<String> authors;
@@ -21,9 +20,7 @@ public class VolumeInfo {
 
     private ReadingModes readingModes;
 
-    public ReadingModes getReadingModes() {
-        return readingModes;
-    }
+
 
     public String getDescription() {
         return description;
@@ -44,4 +41,5 @@ public class VolumeInfo {
     public VolumeImageLinks getImageLinks() {
         return imageLinks;
     }
+    public ReadingModes getReadingModes() { return readingModes; }
 }

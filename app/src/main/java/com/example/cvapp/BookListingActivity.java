@@ -34,7 +34,7 @@ public class BookListingActivity extends MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_listing);
 
-        adapter = new BookAdapter(books);
+        adapter = new BookAdapter(books, this);
         RecyclerView recyclerView = findViewById(R.id.book_list);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);

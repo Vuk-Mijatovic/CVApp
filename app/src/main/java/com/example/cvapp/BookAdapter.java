@@ -1,5 +1,8 @@
 package com.example.cvapp;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,9 +22,12 @@ import okhttp3.internal.Util;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> {
     private List<Volume> books;
+    Volume currentBook;
+    Context context;
 
-    public BookAdapter(List<Volume> books) {
+    public BookAdapter(List<Volume> books, Context context) {
         this.books = books;
+        this.context = context;
     }
 
     @NonNull
@@ -34,7 +40,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull BookHolder holder, int position) {
-        Volume currentBook = books.get(position);
+        currentBook = books.get(position);
 
         holder.titleView.setText(currentBook.getVolumeInfo().getTitle());
 
@@ -80,7 +86,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> {
 
 
 
-    class BookHolder extends RecyclerView.ViewHolder {
+    class BookHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView authorView;
         private final TextView titleView;
         private final ImageView imageView;
@@ -92,7 +98,16 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> {
             this.titleView = itemView.findViewById(R.id.title_view);
             this.descriptionView = itemView.findViewById(R.id.description_view);
             this.imageView = itemView.findViewById(R.id.imageView);
+            itemView.setOnClickListener(this);
 
+        }
+
+
+        @Override
+        public void onClick(View v) {
+            Uri webPage = Uri.parse(currentBook.getVolumeInfo().getWebPage());
+            Intent openPage = new Intent(Intent.ACTION_VIEW, webPage);
+            context.startActivity(openPage);
         }
     }
 }
