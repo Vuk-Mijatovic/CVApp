@@ -1,10 +1,15 @@
 package com.example.cvapp;
 
+import android.accounts.NetworkErrorException;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
+import java.nio.channels.NoConnectionPendingException;
+
 import okhttp3.OkHttpClient;
+import okhttp3.internal.connection.ConnectInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,8 +46,8 @@ public class BookRepository {
 
                     @Override
                     public void onFailure(Call<VolumesResponse> call, Throwable t) {
-                        volumesResponseLiveData.postValue(null);
-                        Log.i("Responose is", "unsuccessful");
+                        //volumesResponseLiveData.postValue(null);
+                        Log.i("Response is", "unsuccessful");
                     }
                 });
     }

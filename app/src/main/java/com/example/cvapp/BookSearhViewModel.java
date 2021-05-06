@@ -1,6 +1,9 @@
 package com.example.cvapp;
 
 import android.app.Application;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.view.LayoutInflater;
 
 import androidx.annotation.NonNull;
@@ -27,5 +30,13 @@ public class BookSearhViewModel extends AndroidViewModel {
 
     public LiveData<VolumesResponse> getVolumesResponseLiveData() {
         return volumesResponseLiveData;
+    }
+
+    public boolean isConnected(){
+        ConnectivityManager cm =
+                (ConnectivityManager) getApplication().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return (activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting());
     }
 }

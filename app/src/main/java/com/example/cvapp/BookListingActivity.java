@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cvapp.MainActivity;
@@ -30,6 +31,7 @@ public class BookListingActivity extends MainActivity {
     int startIndex;
     List<Volume> books = new ArrayList<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,8 +42,11 @@ public class BookListingActivity extends MainActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+        TextView emptyView = findViewById(R.id.empty_list_item);
+
 
         bookSearhViewModel = new ViewModelProvider(this).get(BookSearhViewModel.class);
+
         bookSearhViewModel.init();
         bookSearhViewModel.getVolumesResponseLiveData().observe(this, new Observer<VolumesResponse>() {
             @Override
@@ -60,33 +65,40 @@ public class BookListingActivity extends MainActivity {
             public void onClick(View v) {
                 InputMethodManager inputMethodManager = (InputMethodManager) BookListingActivity.this.getSystemService(INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(recyclerView.getWindowToken(), 0);
+                if (bookSearhViewModel.isConnected()) {
+                    emptyView.setVisibility(View.GONE);
+                    if (adapter != null) {
+                        adapter.clear();
+                    }
 
-                if (adapter != null) {
-                    adapter.clear();
-                }
-
-                EditText searchTextView = findViewById(R.id.text_input);
-                String keyWord = searchTextView.getText().toString().trim();
-                startIndex = 0;
-                recyclerView.clearOnScrollListeners();
-                if (keyWord == null || keyWord.isEmpty()) {
-                    Toast.makeText(BookListingActivity.this, "Please enter a search term.", Toast.LENGTH_SHORT).show();
-                } else {
-                    bookSearhViewModel.searchVolumes(keyWord, startIndex);
-                }
-
-                EndlessOnScrollListener endlessOnScrollListener = new EndlessOnScrollListener(layoutManager) {
-                    @Override
-                    protected void onLoadMore() {
-                        if (books.get(books.size() - 1) != null) {
-                            adapter.addNullData();
-                        }
-                        startIndex = startIndex + 20;
+                    EditText searchTextView = findViewById(R.id.text_input);
+                    String keyWord = searchTextView.getText().toString().trim();
+                    startIndex = 0;
+                    recyclerView.clearOnScrollListeners();
+                    if (keyWord == null || keyWord.isEmpty()) {
+                        Toast.makeText(BookListingActivity.this, "Please enter a search term.", Toast.LENGTH_SHORT).show();
+                    } else {
                         bookSearhViewModel.searchVolumes(keyWord, startIndex);
                     }
-                };
-                recyclerView.addOnScrollListener(endlessOnScrollListener);
+
+                    EndlessOnScrollListener endlessOnScrollListener = new EndlessOnScrollListener(layoutManager) {
+                        @Override
+                        protected void onLoadMore() {
+                            if (books.get(books.size() - 1) != null) {
+                                adapter.addNullData();
+                            }
+                            startIndex = startIndex + 20;
+                            bookSearhViewModel.searchVolumes(keyWord, startIndex);
+                        }
+                    };
+                    recyclerView.addOnScrollListener(endlessOnScrollListener);
+                } else {
+                    emptyView.setText("No internet connection.");
+                    emptyView.setVisibility(View.VISIBLE);
+                }
             }
+
         });
+
     }
 }
