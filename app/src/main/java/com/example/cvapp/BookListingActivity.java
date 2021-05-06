@@ -46,10 +46,11 @@ public class BookListingActivity extends MainActivity {
         bookSearhViewModel.getVolumesResponseLiveData().observe(this, new Observer<VolumesResponse>() {
             @Override
             public void onChanged(VolumesResponse volumesResponse) {
-                if (volumesResponse != null) {
-                    books.addAll(volumesResponse.getItems());
-                    adapter.notifyDataSetChanged();
+                if (books != null && books.size() > 0) {
+                    books.remove(books.size() - 1);
                 }
+                books.addAll(volumesResponse.getItems());
+                adapter.notifyDataSetChanged();
             }
         });
 
@@ -77,6 +78,9 @@ public class BookListingActivity extends MainActivity {
                 EndlessOnScrollListener endlessOnScrollListener = new EndlessOnScrollListener(layoutManager) {
                     @Override
                     protected void onLoadMore() {
+                        if (books.get(books.size() - 1) != null) {
+                            adapter.addNullData();
+                        }
                         startIndex = startIndex + 20;
                         bookSearhViewModel.searchVolumes(keyWord, startIndex);
                     }

@@ -21,8 +21,8 @@ public class BookSearhViewModel extends AndroidViewModel {
         volumesResponseLiveData = bookRepository.getVolumesResponseLiveData();
     }
 
-    public void searchVolumes (String keyword, int startIndex ) {
-        bookRepository.searchVolumes(keyword, "AIzaSyAQ_cswvQ3PenOYLnuTZ4VORlEp3tfnXtE", startIndex );
+    public void searchVolumes (String keyword, int startIndex) {
+        bookRepository.searchVolumes(keyword, "AIzaSyAQ_cswvQ3PenOYLnuTZ4VORlEp3tfnXtE", startIndex);
     }
 
     public LiveData<VolumesResponse> getVolumesResponseLiveData() {

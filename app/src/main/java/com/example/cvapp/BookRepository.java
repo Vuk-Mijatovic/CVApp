@@ -20,14 +20,7 @@ public class BookRepository {
 
     public BookRepository() {
         volumesResponseLiveData = new MutableLiveData<>();
-
-//        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-//        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-//        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
-
         OkHttpClient client = new OkHttpClient.Builder().build();
-
-
         bookSearchService = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -42,7 +35,6 @@ public class BookRepository {
                     @Override
                     public void onResponse(Call<VolumesResponse> call, Response<VolumesResponse> response) {
                         if (response.body() != null) {
-
                             volumesResponseLiveData.postValue(response.body());
                         }
                     }
