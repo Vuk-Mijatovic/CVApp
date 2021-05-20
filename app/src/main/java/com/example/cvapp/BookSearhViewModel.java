@@ -14,6 +14,7 @@ public class BookSearhViewModel extends AndroidViewModel {
 
     private BookRepository bookRepository;
     private LiveData<VolumesResponse> volumesResponseLiveData;
+    private LiveData<Boolean> failureResponse;
 
     public BookSearhViewModel(@NonNull Application application) {
         super(application);
@@ -22,10 +23,16 @@ public class BookSearhViewModel extends AndroidViewModel {
     public void init() {
         bookRepository = new BookRepository();
         volumesResponseLiveData = bookRepository.getVolumesResponseLiveData();
+        failureResponse = bookRepository.getFailureResponseLiveData();
     }
 
     public void searchVolumes (String keyword, int startIndex) {
         bookRepository.searchVolumes(keyword, "AIzaSyAQ_cswvQ3PenOYLnuTZ4VORlEp3tfnXtE", startIndex);
+    }
+
+
+    public LiveData<Boolean> getFailureResponse() {
+        return failureResponse;
     }
 
     public LiveData<VolumesResponse> getVolumesResponseLiveData() {

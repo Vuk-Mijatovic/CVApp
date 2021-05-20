@@ -20,11 +20,13 @@ public class BookRepository {
 
     private static final String BASE_URL = "https://www.googleapis.com/";
 
-    private  BookSearchService bookSearchService;
+    private BookSearchService bookSearchService;
     private MutableLiveData<VolumesResponse> volumesResponseLiveData;
+    private MutableLiveData<Boolean> failureResponseLiveData;
 
     public BookRepository() {
         volumesResponseLiveData = new MutableLiveData<>();
+        failureResponseLiveData = new MutableLiveData<>();
         OkHttpClient client = new OkHttpClient.Builder().build();
         bookSearchService = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -46,7 +48,7 @@ public class BookRepository {
 
                     @Override
                     public void onFailure(Call<VolumesResponse> call, Throwable t) {
-                        //volumesResponseLiveData.postValue(null);
+                        failureResponseLiveData.postValue(true);
                         Log.i("Response is", "unsuccessful");
                     }
                 });
@@ -54,5 +56,9 @@ public class BookRepository {
 
     public MutableLiveData<VolumesResponse> getVolumesResponseLiveData() {
         return volumesResponseLiveData;
+    }
+
+    public MutableLiveData<Boolean> getFailureResponseLiveData() {
+        return failureResponseLiveData;
     }
 }

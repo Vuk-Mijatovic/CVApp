@@ -48,9 +48,19 @@ public class BookListingActivity extends MainActivity {
         bookSearhViewModel = new ViewModelProvider(this).get(BookSearhViewModel.class);
 
         bookSearhViewModel.init();
+        bookSearhViewModel.getFailureResponse().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean failureResponse) {
+                if (failureResponse == true) {
+                    emptyView.setVisibility(View.VISIBLE);
+                    emptyView.setText("Something went wrong. Please try again.");
+                }
+            }
+        });
         bookSearhViewModel.getVolumesResponseLiveData().observe(this, new Observer<VolumesResponse>() {
             @Override
             public void onChanged(VolumesResponse volumesResponse) {
+
                 if (volumesResponse.getItems() != null && volumesResponse.getItems().size() > 0) {
                     if (books != null && books.size() > 0) {
                         books.remove(books.size() - 1);
