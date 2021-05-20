@@ -30,6 +30,7 @@ public class BookListingActivity extends MainActivity {
     private LinearLayoutManager layoutManager;
     int startIndex;
     List<Volume> books = new ArrayList<>();
+    View ProgressBar;
 
 
     @Override
@@ -43,6 +44,8 @@ public class BookListingActivity extends MainActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         TextView emptyView = findViewById(R.id.empty_list_item);
+        View progressBar = findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.GONE);
 
 
         bookSearhViewModel = new ViewModelProvider(this).get(BookSearhViewModel.class);
@@ -51,6 +54,7 @@ public class BookListingActivity extends MainActivity {
         bookSearhViewModel.getFailureResponse().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean failureResponse) {
+                progressBar.setVisibility(View.GONE);
                 if (failureResponse == true) {
                     emptyView.setVisibility(View.VISIBLE);
                     emptyView.setText("Something went wrong. Please try again.");
@@ -60,7 +64,7 @@ public class BookListingActivity extends MainActivity {
         bookSearhViewModel.getVolumesResponseLiveData().observe(this, new Observer<VolumesResponse>() {
             @Override
             public void onChanged(VolumesResponse volumesResponse) {
-
+                progressBar.setVisibility(View.GONE);
                 if (volumesResponse.getItems() != null && volumesResponse.getItems().size() > 0) {
                     if (books != null && books.size() > 0) {
                         books.remove(books.size() - 1);
@@ -80,6 +84,7 @@ public class BookListingActivity extends MainActivity {
             public void onClick(View v) {
                 InputMethodManager inputMethodManager = (InputMethodManager) BookListingActivity.this.getSystemService(INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(recyclerView.getWindowToken(), 0);
+                progressBar.setVisibility(View.VISIBLE);
                 if (bookSearhViewModel.isConnected()) {
                     emptyView.setVisibility(View.GONE);
                     if (adapter != null) {
@@ -91,6 +96,7 @@ public class BookListingActivity extends MainActivity {
                     startIndex = 0;
                     recyclerView.clearOnScrollListeners();
                     if (keyWord == null || keyWord.isEmpty()) {
+                        progressBar.setVisibility(View.GONE);
                         Toast.makeText(BookListingActivity.this, "Please enter a search term.", Toast.LENGTH_SHORT).show();
                     } else {
                         bookSearhViewModel.searchVolumes(keyWord, startIndex);
@@ -112,12 +118,11 @@ public class BookListingActivity extends MainActivity {
                     };
                     recyclerView.addOnScrollListener(endlessOnScrollListener);
                 } else {
+                    progressBar.setVisibility(View.GONE);
                     emptyView.setText("No internet connection.");
                     emptyView.setVisibility(View.VISIBLE);
                 }
             }
-
         });
-
     }
 }
