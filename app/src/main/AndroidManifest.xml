@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CVApp">
-        <activity android:name=".QuizActivity"></activity>
+        <activity android:name=".QuizActivity"
+            android:theme="@style/Theme.CVApp"
+            android:parentActivityName=".MainActivity">
+        </activity>
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.CVApp.NoActionBar">
