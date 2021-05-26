@@ -8,6 +8,11 @@
             android:icon="@drawable/ic_baseline_menu_book_24"
             android:title="API integration">
 
-    </item>
+        </item>
+        <item
+            android:id="@+id/nav_friends_quiz"
+            android:title="Room Database Integration"
+            android:icon="@drawable/room_ic"/>
+
     </group>
 </menu>
