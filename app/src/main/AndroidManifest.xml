@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CVApp">
         <activity android:name=".QuizActivity"
-            android:theme="@style/Theme.CVApp"
+            android:theme="@style/Theme.CVApp.Quiz"
             android:parentActivityName=".MainActivity">
         </activity>
         <activity
