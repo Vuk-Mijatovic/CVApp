@@ -3,6 +3,7 @@ package com.example.cvapp;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
@@ -10,6 +11,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+@Database(entities = Questions.class, version = 1)
 public abstract class QuestionsDatabase extends RoomDatabase {
 
     public static QuestionsDatabase instance;
@@ -29,7 +31,7 @@ public abstract class QuestionsDatabase extends RoomDatabase {
 
     static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
+    private static final RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
@@ -40,13 +42,14 @@ public abstract class QuestionsDatabase extends RoomDatabase {
                 @Override
                 public void run() {
                     questionsDao = instance.questionsDao();
-                    if (questionsDao != null)
+                    if (questionsDao != null) {
                         questionsDao.insert(new Questions("Pivot! Pivot! PIVOT!", "Ross", "Rachel",
                                 "Chandler", "Monica", 1));
-                    questionsDao.insert(new Questions("We were on a break!", "Rachel", "Joe",
-                            "Phoebe", "Ross", 4));
-                    questionsDao.insert(new Questions("Oh... My... Good!", "Phoebe", "Gunther",
-                            "Chandler", "Janice", 4));
+                        questionsDao.insert(new Questions("We were on a break!", "Rachel", "Joe",
+                                "Phoebe", "Ross", 4));
+                        questionsDao.insert(new Questions("Oh... My... Good!", "Phoebe", "Gunther",
+                                "Chandler", "Janice", 4));
+                    }
                 }
             });
         }

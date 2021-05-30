@@ -1,5 +1,6 @@
 package com.example.cvapp;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -21,21 +22,12 @@ public class Questions {
     @ColumnInfo(name = "option_c")
     private String optionC;
 
-    @ColumnInfo(name = "option_b")
+    @ColumnInfo(name = "option_d")
     private String optionD;
 
     private int answer;
 
     public Questions( String question, String optionA, String optionB, String optionC, String optionD, int answer) {
-        this.question = question;
-        this.optionA = optionA;
-        this.optionB = optionB;
-        this.optionC = optionC;
-        this.optionD = optionD;
-        this.answer = answer;
-    }
-
-    public Questions() {
         this.id = id;
         this.question = question;
         this.optionA = optionA;
@@ -44,6 +36,7 @@ public class Questions {
         this.optionD = optionD;
         this.answer = answer;
     }
+
 
     public int getId() {
         return id;

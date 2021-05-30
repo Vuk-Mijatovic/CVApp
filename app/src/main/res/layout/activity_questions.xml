@@ -61,6 +61,7 @@
         android:textSize="25sp" />
 
     <TextView
+        android:id="@+id/question_view"
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:background="@drawable/question_bkg"
