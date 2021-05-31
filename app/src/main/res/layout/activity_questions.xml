@@ -8,6 +8,7 @@
     tools:context=".QuestionsActivity">
 
     <TextView
+        android:id="@+id/questionsNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -56,7 +57,7 @@
         android:gravity="center"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:text="Can you match the quote with the character?"
+        android:text="@string/main_question"
         android:textColor="@color/white"
         android:textSize="25sp" />
 
@@ -93,7 +94,7 @@
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/option1"
+                android:id="@+id/optionA"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -103,7 +104,7 @@
                 android:text="Joe" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/option2"
+                android:id="@+id/optionB"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -123,7 +124,7 @@
             android:layout_marginTop="5dp">
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/option3"
+                android:id="@+id/optionC"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -133,7 +134,7 @@
                 android:text="Chandler" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/option4"
+                android:id="@+id/optionD"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
