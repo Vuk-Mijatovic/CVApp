@@ -44,11 +44,11 @@ public abstract class QuestionsDatabase extends RoomDatabase {
                     questionsDao = instance.questionsDao();
                     if (questionsDao != null) {
                         questionsDao.insert(new Questions("Pivot! Pivot! PIVOT!", "Ross", "Rachel",
-                                "Chandler", "Monica", 1));
+                                "Chandler", "Monica", "Ross"));
                         questionsDao.insert(new Questions("We were on a break!", "Rachel", "Joe",
-                                "Phoebe", "Ross", 4));
+                                "Phoebe", "Ross", "Ross"));
                         questionsDao.insert(new Questions("Oh... My... Good!", "Phoebe", "Gunther",
-                                "Chandler", "Janice", 4));
+                                "Chandler", "Janice", "Janice"));
                     }
                 }
             });

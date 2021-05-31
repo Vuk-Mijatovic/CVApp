@@ -13,13 +13,17 @@ import java.util.List;
 
 public class QuestionsActivity extends AppCompatActivity {
 
+    private QuestionsViewModel questionsViewModel;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questions);
 
-        QuestionsViewModel viewModel= new ViewModelProvider(this).get(QuestionsViewModel.class);
-        viewModel.getAllQuestions().observe(this, new Observer<List<Questions>>() {
+        questionsViewModel = new ViewModelProvider(this).get(QuestionsViewModel.class);
+        questionsViewModel.getAllQuestions().observe(this, new Observer<List<Questions>>() {
             @Override
             public void onChanged(List<Questions> questions) {
 

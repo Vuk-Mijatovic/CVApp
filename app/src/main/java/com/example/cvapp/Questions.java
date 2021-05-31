@@ -25,9 +25,9 @@ public class Questions {
     @ColumnInfo(name = "option_d")
     private String optionD;
 
-    private int answer;
+    private String answer;
 
-    public Questions( String question, String optionA, String optionB, String optionC, String optionD, int answer) {
+    public Questions( String question, String optionA, String optionB, String optionC, String optionD, String answer) {
         this.id = id;
         this.question = question;
         this.optionA = optionA;
@@ -86,11 +86,11 @@ public class Questions {
         this.optionD = optionD;
     }
 
-    public int getAnswer() {
+    public String getAnswer() {
         return answer;
     }
 
-    public void setAnswer(int answer) {
+    public void setAnswer(String answer) {
         this.answer = answer;
     }
 }
