@@ -3,5 +3,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="main_question">Can you match the quote with the character?</string>
+    <string name="question_number">Question: %1d/%2d</string>
+    <string name="score_board">Score: %d</string>
 
 </resources>
