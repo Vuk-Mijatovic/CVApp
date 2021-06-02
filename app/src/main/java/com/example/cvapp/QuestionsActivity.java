@@ -6,8 +6,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Layout;
-import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
@@ -22,7 +20,6 @@ import java.util.List;
 
 public class QuestionsActivity extends AppCompatActivity {
 
-    private QuestionsViewModel questionsViewModel;
     List<Questions> questionsList;
     TextView questionsView;
     TextView questionNumbers;
@@ -52,7 +49,7 @@ public class QuestionsActivity extends AppCompatActivity {
         scoreView.setText(scoreBoard);
 
 
-        questionsViewModel = new ViewModelProvider(this).get(QuestionsViewModel.class);
+        QuestionsViewModel questionsViewModel = new ViewModelProvider(this).get(QuestionsViewModel.class);
         questionsViewModel.getAllQuestions().observe(this, new Observer<List<Questions>>() {
             @Override
             public void onChanged(List<Questions> questions) {
@@ -70,7 +67,7 @@ public class QuestionsActivity extends AppCompatActivity {
                 optionA.startAnimation(buttonClick);
                 String answer = optionA.getText().toString();
                 if (checkAnswer(answer)) {
-                    optionA.setBackground(getDrawable(R.drawable.right_answer_bkg));
+                    setViewsRightAnswer(answer);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -79,12 +76,11 @@ public class QuestionsActivity extends AppCompatActivity {
                         }
                     }, 1000);
                 } else {
-                    optionA.setBackground(getDrawable(R.drawable.wrong_answer_bkg));
+                    setViewsWrongAnswer(answer, optionA);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             wrongAswer();
-                            optionA.setBackground(getDrawable(R.drawable.default_option_bkg));
                         }
                     }, 1000);
                 }
@@ -97,7 +93,7 @@ public class QuestionsActivity extends AppCompatActivity {
                 optionB.startAnimation(buttonClick);
                 String answer = optionB.getText().toString();
                 if (checkAnswer(answer)) {
-                    optionB.setBackground(getDrawable(R.drawable.right_answer_bkg));
+                    setViewsRightAnswer(answer);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -106,14 +102,14 @@ public class QuestionsActivity extends AppCompatActivity {
                         }
                     }, 1000);
                 } else {
-                    optionB.setBackground(getDrawable(R.drawable.wrong_answer_bkg));
+                    setViewsWrongAnswer(answer, optionB);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             wrongAswer();
-                            optionB.setBackground(getDrawable(R.drawable.default_option_bkg));
                         }
-                    }, 1000);                }
+                    }, 1000);
+                }
             }
         });
 
@@ -123,22 +119,22 @@ public class QuestionsActivity extends AppCompatActivity {
                 optionC.startAnimation(buttonClick);
                 String answer = optionC.getText().toString();
                 if (checkAnswer(answer)) {
-                    optionC.setBackground(getDrawable(R.drawable.right_answer_bkg));
+                    setViewsRightAnswer(answer);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             rightAnswer();
-                            optionC.setBackground(getDrawable(R.drawable.default_option_bkg));
                         }
-                    }, 1000);                } else {
-                    optionC.setBackground(getDrawable(R.drawable.wrong_answer_bkg));
+                    }, 1000);
+                } else {
+                    setViewsWrongAnswer(answer, optionC);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             wrongAswer();
-                            optionC.setBackground(getDrawable(R.drawable.default_option_bkg));
                         }
-                    }, 1000);                }
+                    }, 1000);
+                }
             }
         });
 
@@ -148,22 +144,22 @@ public class QuestionsActivity extends AppCompatActivity {
                 optionD.startAnimation(buttonClick);
                 String answer = optionD.getText().toString();
                 if (checkAnswer(answer)) {
-                    optionD.setBackground(getDrawable(R.drawable.right_answer_bkg));
+                    setViewsRightAnswer(answer);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             rightAnswer();
-                            optionD.setBackground(getDrawable(R.drawable.default_option_bkg));
                         }
-                    }, 1000);                } else {
-                    optionD.setBackground(getDrawable(R.drawable.wrong_answer_bkg));
+                    }, 1000);
+                } else {
+                    setViewsWrongAnswer(answer, optionD);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             wrongAswer();
-                            optionC.setBackground(getDrawable(R.drawable.default_option_bkg));
                         }
-                    }, 1000);                }
+                    }, 1000);
+                }
             }
         });
     }
@@ -185,6 +181,7 @@ public class QuestionsActivity extends AppCompatActivity {
         scoreBoard = getString(R.string.score_board, score);
         scoreView.setText(scoreBoard);
         setQuestion();
+        makeOptionsVisible();
         //todo finish game over logic
     }
 
@@ -206,7 +203,6 @@ public class QuestionsActivity extends AppCompatActivity {
         else return false;
     }
 
-
     private void rightAnswer() {
         currentQuestionNumber++;
         score++;
@@ -214,14 +210,56 @@ public class QuestionsActivity extends AppCompatActivity {
         scoreView.setText(scoreBoard);
         if (currentQuestionNumber < questionsList.size() + 1) {
             setQuestion();
+            makeOptionsVisible();
         } else {
             gameOver();
         }
     }
 
     private void wrongAswer() {
-        Toast.makeText(QuestionsActivity.this, "That is wrong. Try again.", Toast.LENGTH_SHORT).show();
-        //todo finish wrong answer logic
+        currentQuestionNumber++;
+        setDefaultBackground();
+        if (currentQuestionNumber < questionsList.size() + 1) {
+            setQuestion();
+            makeOptionsVisible();
+        } else {
+            gameOver();
+        }
+    }
+
+    private void makeOptionsVisible() {
+        optionA.setVisibility(View.VISIBLE);
+        optionB.setVisibility(View.VISIBLE);
+        optionC.setVisibility(View.VISIBLE);
+        optionD.setVisibility(View.VISIBLE);
+    }
+
+    private void setDefaultBackground() {
+        Button[] buttons = {optionA, optionB, optionC, optionD};
+        for (Button b : buttons) {
+            b.setBackground(getDrawable(R.drawable.default_option_bkg));
+        }
+    }
+
+    private void setViewsRightAnswer(String answer) {
+        Button[] buttons = {optionA, optionB, optionC, optionD};
+        for (Button b : buttons) {
+            if (b.getText().toString().equals(answer)) {
+                b.setBackground(getDrawable(R.drawable.right_answer_bkg));
+            } else {
+                b.setVisibility(View.INVISIBLE);
+            }
+        }
+    }
+
+    private void setViewsWrongAnswer(String answer, Button current) {
+        Button[] buttons = {optionA, optionB, optionC, optionD};
+        for (Button b : buttons) {
+            if (b == current) b.setBackground(getDrawable(R.drawable.wrong_answer_bkg));
+            else if (b.getText().toString().equals(currentQuestion.getAnswer()))
+                b.setBackground(getDrawable(R.drawable.right_answer_bkg));
+            else b.setVisibility(View.INVISIBLE);
+        }
     }
 
 }
