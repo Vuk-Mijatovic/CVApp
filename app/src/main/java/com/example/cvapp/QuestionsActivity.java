@@ -124,6 +124,8 @@ public class QuestionsActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             rightAnswer();
+                            optionC.setBackground(getDrawable(R.drawable.default_option_bkg));
+
                         }
                     }, 1000);
                 } else {
@@ -149,6 +151,8 @@ public class QuestionsActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             rightAnswer();
+                            optionD.setBackground(getDrawable(R.drawable.default_option_bkg));
+
                         }
                     }, 1000);
                 } else {
