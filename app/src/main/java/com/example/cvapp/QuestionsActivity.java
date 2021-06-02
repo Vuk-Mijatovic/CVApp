@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Layout;
 import android.view.Gravity;
 import android.view.View;
@@ -67,8 +68,26 @@ public class QuestionsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 optionA.startAnimation(buttonClick);
-               String answer = optionA.getText().toString();
-               checkAnswer(answer);
+                String answer = optionA.getText().toString();
+                if (checkAnswer(answer)) {
+                    optionA.setBackground(getDrawable(R.drawable.right_answer_bkg));
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            rightAnswer();
+                            optionA.setBackground(getDrawable(R.drawable.default_option_bkg));
+                        }
+                    }, 1000);
+                } else {
+                    optionA.setBackground(getDrawable(R.drawable.wrong_answer_bkg));
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            wrongAswer();
+                            optionA.setBackground(getDrawable(R.drawable.default_option_bkg));
+                        }
+                    }, 1000);
+                }
             }
         });
 
@@ -76,8 +95,25 @@ public class QuestionsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 optionB.startAnimation(buttonClick);
-                String answer = optionA.getText().toString();
-                checkAnswer(answer);
+                String answer = optionB.getText().toString();
+                if (checkAnswer(answer)) {
+                    optionB.setBackground(getDrawable(R.drawable.right_answer_bkg));
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            rightAnswer();
+                            optionB.setBackground(getDrawable(R.drawable.default_option_bkg));
+                        }
+                    }, 1000);
+                } else {
+                    optionB.setBackground(getDrawable(R.drawable.wrong_answer_bkg));
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            wrongAswer();
+                            optionB.setBackground(getDrawable(R.drawable.default_option_bkg));
+                        }
+                    }, 1000);                }
             }
         });
 
@@ -85,8 +121,24 @@ public class QuestionsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 optionC.startAnimation(buttonClick);
-                String answer = optionA.getText().toString();
-                checkAnswer(answer);
+                String answer = optionC.getText().toString();
+                if (checkAnswer(answer)) {
+                    optionC.setBackground(getDrawable(R.drawable.right_answer_bkg));
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            rightAnswer();
+                            optionC.setBackground(getDrawable(R.drawable.default_option_bkg));
+                        }
+                    }, 1000);                } else {
+                    optionC.setBackground(getDrawable(R.drawable.wrong_answer_bkg));
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            wrongAswer();
+                            optionC.setBackground(getDrawable(R.drawable.default_option_bkg));
+                        }
+                    }, 1000);                }
             }
         });
 
@@ -95,7 +147,23 @@ public class QuestionsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 optionD.startAnimation(buttonClick);
                 String answer = optionD.getText().toString();
-                checkAnswer(answer);
+                if (checkAnswer(answer)) {
+                    optionD.setBackground(getDrawable(R.drawable.right_answer_bkg));
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            rightAnswer();
+                            optionD.setBackground(getDrawable(R.drawable.default_option_bkg));
+                        }
+                    }, 1000);                } else {
+                    optionD.setBackground(getDrawable(R.drawable.wrong_answer_bkg));
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            wrongAswer();
+                            optionC.setBackground(getDrawable(R.drawable.default_option_bkg));
+                        }
+                    }, 1000);                }
             }
         });
     }
@@ -132,21 +200,28 @@ public class QuestionsActivity extends AppCompatActivity {
         optionD.setText(currentQuestion.getOptionD());
     }
 
-    private void checkAnswer(String answer) {
-        if (answer.equals(currentQuestion.getAnswer())) {
-            Toast.makeText(QuestionsActivity.this, "Great job!", Toast.LENGTH_SHORT).show();
-            currentQuestionNumber++;
-            score++;
-            scoreBoard = getString(R.string.score_board, score);
-            scoreView.setText(scoreBoard);
-            if (currentQuestionNumber < questionsList.size() + 1) {
-                setQuestion();
-            } else {
-                gameOver();
-            }
+    private boolean checkAnswer(String answer) {
+        if (answer.equals(currentQuestion.getAnswer()))
+            return true;
+        else return false;
+    }
+
+
+    private void rightAnswer() {
+        currentQuestionNumber++;
+        score++;
+        scoreBoard = getString(R.string.score_board, score);
+        scoreView.setText(scoreBoard);
+        if (currentQuestionNumber < questionsList.size() + 1) {
+            setQuestion();
         } else {
-            Toast.makeText(QuestionsActivity.this, "That is wrong. Try again.", Toast.LENGTH_SHORT).show();
-            //todo finish wrong answer logic
+            gameOver();
         }
     }
+
+    private void wrongAswer() {
+        Toast.makeText(QuestionsActivity.this, "That is wrong. Try again.", Toast.LENGTH_SHORT).show();
+        //todo finish wrong answer logic
+    }
+
 }

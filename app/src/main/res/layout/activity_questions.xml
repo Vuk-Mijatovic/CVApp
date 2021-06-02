@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="#9575CD"
     android:orientation="vertical"
+    android:animateLayoutChanges="true"
     tools:context=".QuestionsActivity">
 
     <TextView
