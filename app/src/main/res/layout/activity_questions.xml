@@ -4,9 +4,9 @@
     android:id="@+id/acivity_question"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:background="#9575CD"
     android:orientation="vertical"
-    android:animateLayoutChanges="true"
     tools:context=".QuestionsActivity">
 
     <TextView
@@ -67,25 +67,25 @@
         android:id="@+id/question_view"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="@drawable/question_bkg"
-        android:layout_marginTop="30dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="10dp"
+        android:autoSizeMaxTextSize="25sp"
+        android:autoSizeMinTextSize="18sp"
+        android:autoSizeTextType="uniform"
+        android:background="@drawable/question_bkg"
+        android:fontFamily="@font/friendsfont"
+        android:gravity="center"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:gravity="center"
-        android:autoSizeTextType="uniform"
-        android:autoSizeMinTextSize="18sp"
-        android:autoSizeMaxTextSize="25sp"
-        android:fontFamily="@font/friendsfont"
-        android:textColor="@color/white"
-        android:text="Pivot! Pivot! Pivot!" />
+        android:text="Pivot! Pivot! Pivot!"
+        android:textColor="@color/white" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="10dp"
         android:gravity="center">
 
@@ -102,8 +102,8 @@
                 android:layout_weight="1"
                 android:background="@drawable/default_option_bkg"
                 android:fontFamily="@font/friendsfont"
-                android:textSize="18sp"
-                android:text="Joe" />
+                android:text="Joe"
+                android:textSize="18sp" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/optionB"
@@ -113,8 +113,8 @@
                 android:layout_weight="1"
                 android:background="@drawable/default_option_bkg"
                 android:fontFamily="@font/friendsfont"
-                android:textSize="18sp"
-                android:text="Rachel" />
+                android:text="Rachel"
+                android:textSize="18sp" />
 
         </LinearLayout>
 
@@ -122,8 +122,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/buttons_container1"
-            android:orientation="horizontal"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/optionC"
@@ -132,8 +132,8 @@
                 android:layout_weight="1"
                 android:background="@drawable/default_option_bkg"
                 android:fontFamily="@font/friendsfont"
-                android:textSize="18sp"
-                android:text="Chandler" />
+                android:text="Chandler"
+                android:textSize="18sp" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/optionD"
@@ -143,12 +143,11 @@
                 android:layout_weight="1"
                 android:background="@drawable/default_option_bkg"
                 android:fontFamily="@font/friendsfont"
-                android:textSize="18sp"
-                android:text="Ross" />
+                android:text="Ross"
+                android:textSize="18sp" />
+
         </LinearLayout>
 
-
     </RelativeLayout>
-
 
 </LinearLayout>

@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.app.SearchManager;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -20,12 +21,14 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class QuestionsActivity extends AppCompatActivity {
 
     List<Questions> questionsList;
     TextView questionsView;
     TextView questionNumbers;
+    TextView textViewCountDownTimer;
     Button optionA;
     Button optionB;
     Button optionC;
@@ -37,6 +40,10 @@ public class QuestionsActivity extends AppCompatActivity {
     int currentQuestionNumber = 1;
     int score = 0;
     private PlayAudio playAudio;
+    private static final long COUNTDOWN = 15000;
+    private static final int RED_ALERT = 6000;
+    private CountDownTimer countDownTimer;
+    private long timeLeftInMillis;
 
 
     @Override
@@ -69,6 +76,7 @@ public class QuestionsActivity extends AppCompatActivity {
         optionA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                countDownTimer.cancel();
                 optionA.startAnimation(buttonClick);
                 String answer = optionA.getText().toString();
                 if (checkAnswer(answer)) {
@@ -97,6 +105,7 @@ public class QuestionsActivity extends AppCompatActivity {
         optionB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                countDownTimer.cancel();
                 optionB.startAnimation(buttonClick);
                 String answer = optionB.getText().toString();
                 if (checkAnswer(answer)) {
@@ -125,6 +134,7 @@ public class QuestionsActivity extends AppCompatActivity {
         optionC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                countDownTimer.cancel();
                 optionC.startAnimation(buttonClick);
                 String answer = optionC.getText().toString();
                 if (checkAnswer(answer)) {
@@ -154,6 +164,7 @@ public class QuestionsActivity extends AppCompatActivity {
         optionD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                countDownTimer.cancel();
                 optionD.startAnimation(buttonClick);
                 String answer = optionD.getText().toString();
                 if (checkAnswer(answer)) {
@@ -206,6 +217,9 @@ public class QuestionsActivity extends AppCompatActivity {
             }
         });
         dialog.show();
+        playAudio.stopPlayer();
+        if (countDownTimer != null)
+            countDownTimer.cancel();
     }
 
     private void startNewGame() {
@@ -219,6 +233,7 @@ public class QuestionsActivity extends AppCompatActivity {
     }
 
     private void setQuestion() {
+        timeLeftInMillis = COUNTDOWN;
         String text = getString(R.string.question_number,
                 currentQuestionNumber, questionsList.size());
         questionNumbers.setText(text);
@@ -228,6 +243,48 @@ public class QuestionsActivity extends AppCompatActivity {
         optionB.setText(currentQuestion.getOptionB());
         optionC.setText(currentQuestion.getOptionC());
         optionD.setText(currentQuestion.getOptionD());
+        startCountDown();
+    }
+
+    private void startCountDown() {
+        countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeLeftInMillis = millisUntilFinished;
+                updateCountDownText();
+            }
+
+            @Override
+            public void onFinish() {
+                timeLeftInMillis = 0;
+                updateCountDownText();
+            }
+        }.start();
+    }
+
+    private void updateCountDownText() {
+        int minutes = (int) (timeLeftInMillis / 1000) / 60;
+        int seconds = (int) (timeLeftInMillis / 1000) % 60;
+
+        String timeFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+        textViewCountDownTimer = findViewById(R.id.text_timer);
+        textViewCountDownTimer.setText(timeFormatted);
+        if (timeLeftInMillis < RED_ALERT) {
+            textViewCountDownTimer.setTextColor(getResources().getColor(android.R.color.holo_red_light));
+            playAudio.playSound(R.raw.tick_tock);
+        } else textViewCountDownTimer.setTextColor(getResources().getColor(android.R.color.white));
+        if (timeLeftInMillis == 0) {
+            playAudio.stopPlayer();
+            playAudio.playSound(R.raw.oh_my);
+            if (countDownTimer != null)
+                countDownTimer.cancel();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    timeIsUp();
+                }
+            }, 1500);
+        }
     }
 
     private boolean checkAnswer(String answer) {
@@ -265,6 +322,40 @@ public class QuestionsActivity extends AppCompatActivity {
         }
     }
 
+    private void timeIsUp() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        final View customLayout = getLayoutInflater().inflate(R.layout.final_score_dialog, null);
+        TextView titleView = customLayout.findViewById(R.id.finalDialogTitle);
+        titleView.setText("Time's Up");
+        TextView finalScoreView = customLayout.findViewById(R.id.final_score_view);
+        finalScoreView.setText("Your final score: " + score);
+        builder.setView(customLayout);
+        Button okButton = customLayout.findViewById(R.id.ok_button);
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startNewGame();
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                finish();
+            }
+        });
+        dialog.show();
+        playAudio.stopPlayer();
+        if (countDownTimer != null)
+            countDownTimer.cancel();
+    }
+
     private void makeOptionsVisible() {
         optionA.setVisibility(View.VISIBLE);
         optionB.setVisibility(View.VISIBLE);
@@ -300,4 +391,14 @@ public class QuestionsActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (!playAudio.playerIsNull())
+            playAudio.stopPlayer();
+        if (countDownTimer != null)
+            countDownTimer.cancel();
+    }
+
 }
+
