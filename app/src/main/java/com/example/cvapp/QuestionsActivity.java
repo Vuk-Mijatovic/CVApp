@@ -1,9 +1,12 @@
 package com.example.cvapp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.SearchManager;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -30,8 +33,10 @@ public class QuestionsActivity extends AppCompatActivity {
     Questions currentQuestion;
     TextView scoreView;
     String scoreBoard;
+    AlertDialog dialog;
     int currentQuestionNumber = 1;
     int score = 0;
+    private PlayAudio playAudio;
 
 
     @Override
@@ -47,7 +52,7 @@ public class QuestionsActivity extends AppCompatActivity {
         scoreView = findViewById(R.id.score);
         scoreBoard = getString(R.string.score_board, score);
         scoreView.setText(scoreBoard);
-
+        playAudio = new PlayAudio(this);
 
         QuestionsViewModel questionsViewModel = new ViewModelProvider(this).get(QuestionsViewModel.class);
         questionsViewModel.getAllQuestions().observe(this, new Observer<List<Questions>>() {
@@ -68,21 +73,23 @@ public class QuestionsActivity extends AppCompatActivity {
                 String answer = optionA.getText().toString();
                 if (checkAnswer(answer)) {
                     setViewsRightAnswer(answer);
+                    playAudio.playSound(R.raw.geek);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             rightAnswer();
                             optionA.setBackground(getDrawable(R.drawable.default_option_bkg));
                         }
-                    }, 1000);
+                    }, 1500);
                 } else {
+                    playAudio.playSound(R.raw.oh_no);
                     setViewsWrongAnswer(answer, optionA);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             wrongAswer();
                         }
-                    }, 1000);
+                    }, 1500);
                 }
             }
         });
@@ -93,6 +100,7 @@ public class QuestionsActivity extends AppCompatActivity {
                 optionB.startAnimation(buttonClick);
                 String answer = optionB.getText().toString();
                 if (checkAnswer(answer)) {
+                    playAudio.playSound(R.raw.geek);
                     setViewsRightAnswer(answer);
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -100,15 +108,16 @@ public class QuestionsActivity extends AppCompatActivity {
                             rightAnswer();
                             optionB.setBackground(getDrawable(R.drawable.default_option_bkg));
                         }
-                    }, 1000);
+                    }, 1500);
                 } else {
+                    playAudio.playSound(R.raw.oh_no);
                     setViewsWrongAnswer(answer, optionB);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             wrongAswer();
                         }
-                    }, 1000);
+                    }, 1500);
                 }
             }
         });
@@ -119,6 +128,7 @@ public class QuestionsActivity extends AppCompatActivity {
                 optionC.startAnimation(buttonClick);
                 String answer = optionC.getText().toString();
                 if (checkAnswer(answer)) {
+                    playAudio.playSound(R.raw.geek);
                     setViewsRightAnswer(answer);
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -127,15 +137,16 @@ public class QuestionsActivity extends AppCompatActivity {
                             optionC.setBackground(getDrawable(R.drawable.default_option_bkg));
 
                         }
-                    }, 1000);
+                    }, 1500);
                 } else {
+                    playAudio.playSound(R.raw.oh_no);
                     setViewsWrongAnswer(answer, optionC);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             wrongAswer();
                         }
-                    }, 1000);
+                    }, 1500);
                 }
             }
         });
@@ -146,36 +157,55 @@ public class QuestionsActivity extends AppCompatActivity {
                 optionD.startAnimation(buttonClick);
                 String answer = optionD.getText().toString();
                 if (checkAnswer(answer)) {
+                    playAudio.playSound(R.raw.geek);
                     setViewsRightAnswer(answer);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             rightAnswer();
                             optionD.setBackground(getDrawable(R.drawable.default_option_bkg));
-
                         }
-                    }, 1000);
+                    }, 1500);
                 } else {
+                    playAudio.playSound(R.raw.oh_no);
                     setViewsWrongAnswer(answer, optionD);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             wrongAswer();
                         }
-                    }, 1000);
+                    }, 1500);
                 }
             }
         });
     }
 
     private void gameOver() {
-        View snackBarBaseView = findViewById(R.id.acivity_question);
-        Snackbar.make(snackBarBaseView, "Game Over", BaseTransientBottomBar.LENGTH_INDEFINITE).setAction("Play again?", new View.OnClickListener() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        final View customLayout = getLayoutInflater().inflate(R.layout.final_score_dialog, null);
+        TextView finalScoreView = customLayout.findViewById(R.id.final_score_view);
+        finalScoreView.setText("Your final score: " + score);
+        builder.setView(customLayout);
+        Button okButton = customLayout.findViewById(R.id.ok_button);
+        okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startNewGame();
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
             }
-        }).show();
+        });
+        dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                finish();
+            }
+        });
+        dialog.show();
     }
 
     private void startNewGame() {
@@ -186,7 +216,6 @@ public class QuestionsActivity extends AppCompatActivity {
         scoreView.setText(scoreBoard);
         setQuestion();
         makeOptionsVisible();
-        //todo finish game over logic
     }
 
     private void setQuestion() {
@@ -209,7 +238,8 @@ public class QuestionsActivity extends AppCompatActivity {
 
     private void rightAnswer() {
         currentQuestionNumber++;
-        score++;
+        //for right answer player gets 5 points
+        score = score + 5;
         scoreBoard = getString(R.string.score_board, score);
         scoreView.setText(scoreBoard);
         if (currentQuestionNumber < questionsList.size() + 1) {
@@ -222,6 +252,10 @@ public class QuestionsActivity extends AppCompatActivity {
 
     private void wrongAswer() {
         currentQuestionNumber++;
+        //if answer is wrong player loses 2 points
+        score = score - 2;
+        scoreBoard = getString(R.string.score_board, score);
+        scoreView.setText(scoreBoard);
         setDefaultBackground();
         if (currentQuestionNumber < questionsList.size() + 1) {
             setQuestion();
