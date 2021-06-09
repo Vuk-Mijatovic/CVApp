@@ -41,8 +41,8 @@ public class QuestionsActivity extends AppCompatActivity {
     int currentQuestionNumber = 1;
     int score = 0;
     private PlayAudio playAudio;
-    private static final long COUNTDOWN = 15000;
-    private static final int RED_ALERT = 6000;
+    private static final long COUNTDOWN = 30000;
+    private static final int RED_ALERT = 10000;
     private CountDownTimer countDownTimer;
     private long timeLeftInMillis;
     private boolean gameInProgress;
@@ -58,6 +58,7 @@ public class QuestionsActivity extends AppCompatActivity {
         optionB = findViewById(R.id.optionB);
         optionC = findViewById(R.id.optionC);
         optionD = findViewById(R.id.optionD);
+        makeOptionsInvisible();
         scoreView = findViewById(R.id.score);
         scoreBoard = getString(R.string.score_board, score);
         scoreView.setText(scoreBoard);
@@ -68,9 +69,7 @@ public class QuestionsActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<Questions> questions) {
                 questionsList = questions;
-                Collections.shuffle(questionsList);
-                setQuestion();
-
+                startNewGame();
             }
         });
 
@@ -233,10 +232,12 @@ public class QuestionsActivity extends AppCompatActivity {
         scoreBoard = getString(R.string.score_board, score);
         scoreView.setText(scoreBoard);
         setQuestion();
-        makeOptionsVisible();
     }
 
     private void setQuestion() {
+        if (textViewCountDownTimer != null)
+        textViewCountDownTimer.setText("00:30");
+        makeOptionsInvisible();
         timeLeftInMillis = COUNTDOWN;
         String text = getString(R.string.question_number,
                 currentQuestionNumber, questionsList.size());
@@ -247,7 +248,13 @@ public class QuestionsActivity extends AppCompatActivity {
         optionB.setText(currentQuestion.getOptionB());
         optionC.setText(currentQuestion.getOptionC());
         optionD.setText(currentQuestion.getOptionD());
-        startCountDown();
+        makeOptionsVisible();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startCountDown();
+            }
+        }, 2000);
         gameInProgress = true;
     }
 
@@ -306,7 +313,6 @@ public class QuestionsActivity extends AppCompatActivity {
         scoreView.setText(scoreBoard);
         if (currentQuestionNumber < questionsList.size() + 1) {
             setQuestion();
-            makeOptionsVisible();
         } else {
             gameOver();
         }
@@ -321,7 +327,6 @@ public class QuestionsActivity extends AppCompatActivity {
         setDefaultBackground();
         if (currentQuestionNumber < questionsList.size() + 1) {
             setQuestion();
-            makeOptionsVisible();
         } else {
             gameOver();
         }
@@ -364,10 +369,37 @@ public class QuestionsActivity extends AppCompatActivity {
     }
 
     private void makeOptionsVisible() {
-        optionA.setVisibility(View.VISIBLE);
-        optionB.setVisibility(View.VISIBLE);
-        optionC.setVisibility(View.VISIBLE);
-        optionD.setVisibility(View.VISIBLE);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                optionA.setVisibility(View.VISIBLE);
+            }
+        }, 500);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                optionB.setVisibility(View.VISIBLE);
+            }
+        }, 1000);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                optionC.setVisibility(View.VISIBLE);
+            }
+        }, 1500);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                optionD.setVisibility(View.VISIBLE);
+            }
+        }, 2000);
+    }
+
+    private void makeOptionsInvisible() {
+        optionA.setVisibility(View.INVISIBLE);
+        optionB.setVisibility(View.INVISIBLE);
+        optionC.setVisibility(View.INVISIBLE);
+        optionD.setVisibility(View.INVISIBLE);
     }
 
     private void setDefaultBackground() {
