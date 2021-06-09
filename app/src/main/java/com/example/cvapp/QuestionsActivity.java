@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.app.SearchManager;
 import android.content.DialogInterface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -44,6 +45,7 @@ public class QuestionsActivity extends AppCompatActivity {
     private static final int RED_ALERT = 6000;
     private CountDownTimer countDownTimer;
     private long timeLeftInMillis;
+    private boolean gameInProgress;
 
 
     @Override
@@ -209,6 +211,7 @@ public class QuestionsActivity extends AppCompatActivity {
             }
         });
         dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setCanceledOnTouchOutside(true);
         dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
@@ -220,6 +223,7 @@ public class QuestionsActivity extends AppCompatActivity {
         playAudio.stopPlayer();
         if (countDownTimer != null)
             countDownTimer.cancel();
+        gameInProgress = false;
     }
 
     private void startNewGame() {
@@ -244,6 +248,7 @@ public class QuestionsActivity extends AppCompatActivity {
         optionC.setText(currentQuestion.getOptionC());
         optionD.setText(currentQuestion.getOptionD());
         startCountDown();
+        gameInProgress = true;
     }
 
     private void startCountDown() {
@@ -328,7 +333,7 @@ public class QuestionsActivity extends AppCompatActivity {
 
         final View customLayout = getLayoutInflater().inflate(R.layout.final_score_dialog, null);
         TextView titleView = customLayout.findViewById(R.id.finalDialogTitle);
-        titleView.setText("Time's Up");
+        titleView.setText(R.string.time_is_up);
         TextView finalScoreView = customLayout.findViewById(R.id.final_score_view);
         finalScoreView.setText("Your final score: " + score);
         builder.setView(customLayout);
@@ -343,6 +348,7 @@ public class QuestionsActivity extends AppCompatActivity {
             }
         });
         dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setCanceledOnTouchOutside(true);
         dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
@@ -354,6 +360,7 @@ public class QuestionsActivity extends AppCompatActivity {
         playAudio.stopPlayer();
         if (countDownTimer != null)
             countDownTimer.cancel();
+        gameInProgress = false;
     }
 
     private void makeOptionsVisible() {
@@ -400,5 +407,22 @@ public class QuestionsActivity extends AppCompatActivity {
             countDownTimer.cancel();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (!playAudio.playerIsNull())
+            playAudio.stopPlayer();
+        if (countDownTimer != null)
+            countDownTimer.cancel();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (gameInProgress) {
+            if (countDownTimer != null)
+                countDownTimer.start();
+        }
+    }
 }
 
