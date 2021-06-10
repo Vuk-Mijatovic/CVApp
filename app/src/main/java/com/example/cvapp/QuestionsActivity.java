@@ -46,6 +46,7 @@ public class QuestionsActivity extends AppCompatActivity {
     private CountDownTimer countDownTimer;
     private long timeLeftInMillis;
     private boolean gameInProgress;
+    private long countAfterPause;
 
 
     @Override
@@ -235,8 +236,10 @@ public class QuestionsActivity extends AppCompatActivity {
     }
 
     private void setQuestion() {
-        if (textViewCountDownTimer != null)
-        textViewCountDownTimer.setText("00:30");
+        if (textViewCountDownTimer != null) {
+            textViewCountDownTimer.setText("00:30");
+            textViewCountDownTimer.setTextColor(getResources().getColor(android.R.color.white));
+        }
         makeOptionsInvisible();
         timeLeftInMillis = COUNTDOWN;
         String text = getString(R.string.question_number,
@@ -340,7 +343,7 @@ public class QuestionsActivity extends AppCompatActivity {
         TextView titleView = customLayout.findViewById(R.id.finalDialogTitle);
         titleView.setText(R.string.time_is_up);
         TextView finalScoreView = customLayout.findViewById(R.id.final_score_view);
-        finalScoreView.setText("Your final score: " + score);
+        finalScoreView.setText(getString(R.string.your_final_score, score));
         builder.setView(customLayout);
         Button okButton = customLayout.findViewById(R.id.ok_button);
         okButton.setOnClickListener(new View.OnClickListener() {
@@ -453,8 +456,9 @@ public class QuestionsActivity extends AppCompatActivity {
         super.onResume();
         if (gameInProgress) {
             if (countDownTimer != null)
-                countDownTimer.start();
+                startCountDown();
         }
     }
+
 }
 

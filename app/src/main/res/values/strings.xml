@@ -6,5 +6,6 @@
     <string name="question_number">Question: %1d/%2d</string>
     <string name="score_board">Score: %d</string>
     <string name="time_is_up">Time\'s Up</string>
+    <string name="your_final_score">\"Your final score: %d \"</string>
 
 </resources>

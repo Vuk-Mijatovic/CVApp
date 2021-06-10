@@ -49,6 +49,10 @@ public abstract class QuestionsDatabase extends RoomDatabase {
                                 "Phoebe", "Ross", "Ross"));
                         questionsDao.insert(new Questions("Oh... My... Good!", "Phoebe", "Gunther",
                                 "Chandler", "Janice", "Janice"));
+                        questionsDao.insert(new Questions("Oh... My... Good!", "Phoebe", "Gunther",
+                                "Chandler", "Janice", "Janice"));
+
+
                     }
                 }
             });
