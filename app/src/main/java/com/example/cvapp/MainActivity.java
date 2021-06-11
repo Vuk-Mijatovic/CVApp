@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)){
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
@@ -48,13 +48,12 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.nav_book_listing:
                         break;
-                    case R.id.nav_friends_quiz:
-                        break;
+                    case R.id.nav_location:
+                        startActivity(new Intent(MainActivity.this, MyLocationActivity.class));
                 }
                 return true;
             }
         });
-
 
 
     }
