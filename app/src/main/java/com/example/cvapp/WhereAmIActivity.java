@@ -25,7 +25,5 @@ public class WhereAmIActivity extends AppCompatActivity {
                         MyLocationActivity.class));
             }
         });
-
-//TODO Deal with fullscreen, status bar and action bar
     }
 }
