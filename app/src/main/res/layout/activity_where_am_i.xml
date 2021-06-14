@@ -17,7 +17,7 @@
         android:textSize="28sp"
         android:textColor="@color/white"
         android:layout_centerInParent="true"
-        android:background="@android:color/transparent"
+        android:background="@drawable/location_button_bkg"
         />
 
 

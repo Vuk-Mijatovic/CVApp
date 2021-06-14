@@ -22,6 +22,7 @@
 
         <activity
             android:name=".MyLocationActivity"
+            android:theme="@style/Theme.CVApp.Location"
             android:label="@string/title_activity_my_location"
             android:parentActivityName=".WhereAmIActivity"/>
         <activity
