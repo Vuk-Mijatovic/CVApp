@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -86,12 +87,11 @@ public class MyLocationActivity extends FragmentActivity implements OnMapReadyCa
                 Geocoder geocoder = new Geocoder(getApplicationContext());
                 try {
                     List<Address> addressList = geocoder.getFromLocation(latitude, longitude, 1);
-                    String result = addressList.get(0).getSubLocality() + " ";
-                    result += addressList.get(0).getLocality();
+                    String adress = addressList.get(0).getAddressLine(0) + " ";
                     if (marker != null) {
                         marker.remove();
                     }
-                    marker = googleMap.addMarker(new MarkerOptions().position(latLng).title(result));
+                    marker = googleMap.addMarker(new MarkerOptions().position(latLng).title(adress));
                     googleMap.setMaxZoomPreference(20);
                     googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
                 } catch (IOException e) {

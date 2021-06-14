@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.nav_book_listing:
                         break;
                     case R.id.nav_location:
-                        startActivity(new Intent(MainActivity.this, MyLocationActivity.class));
+                        startActivity(new Intent(MainActivity.this, WhereAmIActivity.class));
                 }
                 return true;
             }

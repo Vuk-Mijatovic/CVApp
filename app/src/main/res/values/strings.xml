@@ -3,5 +3,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_my_location">Map</string>
+    <string name="i_am_here">I am here: %s</string>
+    <string name="where_am_i">Where Am I?</string>
 
 </resources>

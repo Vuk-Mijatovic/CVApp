@@ -11,16 +11,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CVApp">
+        <activity
+            android:name=".WhereAmIActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.CVApp.Location" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MainActivity"
-            android:label="@string/title_activity_my_location" />
-        <activity
             android:name=".MyLocationActivity"
+            android:label="@string/title_activity_my_location"
+            android:parentActivityName=".WhereAmIActivity"/>
+        <activity
+            android:name=".MainActivity"
             android:theme="@style/Theme.CVApp.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
