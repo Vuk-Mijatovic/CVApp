@@ -459,7 +459,14 @@ public class QuestionsActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (!playAudio.playerIsNull())
+            playAudio.stopPlayer();
+        if (countDownTimer != null)
+            countDownTimer.cancel();
+    }
 }
-//TODO fox back button timer bug
 //TODO fix wait for all options bug
 //TODO Fix final dialog apearance
