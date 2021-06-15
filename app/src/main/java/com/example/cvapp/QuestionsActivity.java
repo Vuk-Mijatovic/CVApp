@@ -75,6 +75,11 @@ public class QuestionsActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+
+    private void makeOptionsClickable() {
         AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.7F);
         optionA.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -241,6 +246,7 @@ public class QuestionsActivity extends AppCompatActivity {
             textViewCountDownTimer.setText("00:30");
             textViewCountDownTimer.setTextColor(getResources().getColor(android.R.color.white));
         }
+        removeListeners();
         makeOptionsInvisible();
         timeLeftInMillis = COUNTDOWN;
         String text = getString(R.string.question_number,
@@ -253,6 +259,12 @@ public class QuestionsActivity extends AppCompatActivity {
         optionC.setText(currentQuestion.getOptionC());
         optionD.setText(currentQuestion.getOptionD());
         makeOptionsVisible();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                makeOptionsClickable();
+            }
+        }, 2000);
         countDownHandler = new Handler();
         countDownRunnable = new Runnable() {
             @Override
@@ -262,6 +274,13 @@ public class QuestionsActivity extends AppCompatActivity {
         };
         countDownHandler.postDelayed(countDownRunnable, 2000);
         gameInProgress = true;
+    }
+
+    private void removeListeners() {
+        optionA.setOnClickListener(null);
+        optionB.setOnClickListener(null);
+        optionC.setOnClickListener(null);
+        optionD.setOnClickListener(null);
     }
 
     private void startCountDown() {
@@ -472,6 +491,5 @@ public class QuestionsActivity extends AppCompatActivity {
         stopGame();
     }
 }
-//TODO fix wait for all options bug
 //TODO Fix final dialog apearance
 //TODO Remove animation
