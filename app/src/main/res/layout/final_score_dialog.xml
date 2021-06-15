@@ -3,7 +3,7 @@
     android:id="@+id/dialog"
     android:layout_width="300dp"
     android:layout_height="230dp"
-    android:background="@drawable/default_option_bkg"
+    android:background="@drawable/game_over_bkg"
     android:layout_gravity="center"
     android:orientation="vertical">
 
