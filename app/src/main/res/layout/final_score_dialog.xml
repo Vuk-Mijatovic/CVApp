@@ -47,7 +47,7 @@
             android:paddingLeft="2dp"
             android:paddingRight="2dp"
             android:paddingBottom="5dp"
-            android:text="Play again?"
+            android:text="@string/play_again"
             android:textColor="@color/black"
             android:textSize="25sp"
             android:textStyle="bold" />
@@ -61,7 +61,7 @@
             android:background="@drawable/default_option_bkg"
             android:gravity="center"
             android:padding="5dp"
-            android:text="OK"
+            android:text="Ok"
             android:textColor="@color/black"
             android:textSize="25sp"
             android:textStyle="bold" />
