@@ -33,6 +33,8 @@ public class QuestionsActivity extends AppCompatActivity {
     Button optionB;
     Button optionC;
     Button optionD;
+    Handler countDownHandler;
+    Runnable countDownRunnable;
     Questions currentQuestion;
     TextView scoreView;
     String scoreBoard;
@@ -251,12 +253,14 @@ public class QuestionsActivity extends AppCompatActivity {
         optionC.setText(currentQuestion.getOptionC());
         optionD.setText(currentQuestion.getOptionD());
         makeOptionsVisible();
-        new Handler().postDelayed(new Runnable() {
+        countDownHandler = new Handler();
+        countDownRunnable = new Runnable() {
             @Override
             public void run() {
                 startCountDown();
             }
-        }, 2000);
+        };
+        countDownHandler.postDelayed(countDownRunnable, 2000);
         gameInProgress = true;
     }
 
@@ -432,9 +436,9 @@ public class QuestionsActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    private void stopGame(){
+        if(countDownHandler != null)
+            countDownHandler.removeCallbacks(countDownRunnable);
         if (!playAudio.playerIsNull())
             playAudio.stopPlayer();
         if (countDownTimer != null)
@@ -442,12 +446,15 @@ public class QuestionsActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+       stopGame();
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
-        if (!playAudio.playerIsNull())
-            playAudio.stopPlayer();
-        if (countDownTimer != null)
-            countDownTimer.cancel();
+        stopGame();
     }
 
     @Override
@@ -462,11 +469,9 @@ public class QuestionsActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (!playAudio.playerIsNull())
-            playAudio.stopPlayer();
-        if (countDownTimer != null)
-            countDownTimer.cancel();
+        stopGame();
     }
 }
 //TODO fix wait for all options bug
 //TODO Fix final dialog apearance
+//TODO Remove animation
