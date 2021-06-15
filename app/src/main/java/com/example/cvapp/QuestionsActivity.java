@@ -460,4 +460,6 @@ public class QuestionsActivity extends AppCompatActivity {
     }
 
 }
-
+//TODO fox back button timer bug
+//TODO fix wait for all options bug
+//TODO Fix final dialog apearance
