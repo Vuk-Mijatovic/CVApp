@@ -80,12 +80,11 @@ public class QuestionsActivity extends AppCompatActivity {
 
 
     private void makeOptionsClickable() {
-        AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.7F);
+
         optionA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 countDownTimer.cancel();
-                optionA.startAnimation(buttonClick);
                 String answer = optionA.getText().toString();
                 if (checkAnswer(answer)) {
                     setViewsRightAnswer(answer);
@@ -114,7 +113,6 @@ public class QuestionsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 countDownTimer.cancel();
-                optionB.startAnimation(buttonClick);
                 String answer = optionB.getText().toString();
                 if (checkAnswer(answer)) {
                     playAudio.playSound(R.raw.geek);
@@ -143,7 +141,6 @@ public class QuestionsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 countDownTimer.cancel();
-                optionC.startAnimation(buttonClick);
                 String answer = optionC.getText().toString();
                 if (checkAnswer(answer)) {
                     playAudio.playSound(R.raw.geek);
@@ -173,7 +170,6 @@ public class QuestionsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 countDownTimer.cancel();
-                optionD.startAnimation(buttonClick);
                 String answer = optionD.getText().toString();
                 if (checkAnswer(answer)) {
                     playAudio.playSound(R.raw.geek);
@@ -455,8 +451,8 @@ public class QuestionsActivity extends AppCompatActivity {
         }
     }
 
-    private void stopGame(){
-        if(countDownHandler != null)
+    private void stopGame() {
+        if (countDownHandler != null)
             countDownHandler.removeCallbacks(countDownRunnable);
         if (!playAudio.playerIsNull())
             playAudio.stopPlayer();
@@ -467,7 +463,7 @@ public class QuestionsActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-       stopGame();
+        stopGame();
     }
 
     @Override
@@ -492,4 +488,3 @@ public class QuestionsActivity extends AppCompatActivity {
     }
 }
 //TODO Fix final dialog apearance
-//TODO Remove animation
