@@ -9,17 +9,6 @@
     android:orientation="vertical"
     tools:context=".QuestionsActivity">
 
-    <TextView
-        android:id="@+id/questionsNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:gravity="center"
-        android:text="Question 1/10"
-        android:textColor="@color/white"
-        android:textSize="22sp"
-        android:textStyle="bold" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,7 +25,7 @@
             android:layout_weight="1"
             android:text="Score: 0"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="17sp"
             android:textStyle="bold" />
 
         <TextView
@@ -47,7 +36,7 @@
             android:text="00:30"
             android:textAlignment="textEnd"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="17sp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -55,45 +44,51 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:fontFamily="@font/friendsfont"
         android:gravity="center"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="@string/main_question"
         android:textColor="@color/white"
-        android:textSize="25sp" />
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="330dp">
+        android:textSize="20sp" />
 
-    <ImageView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/frame" />
+        android:layout_height="370dp">
 
-    <TextView
-        android:id="@+id/question_view"
-        android:layout_width="match_parent"
-        android:layout_height="330dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="10dp"
-        android:autoSizeMaxTextSize="25sp"
-        android:autoSizeMinTextSize="18sp"
-        android:autoSizeTextType="uniform"
-        android:fontFamily="@font/friendsfont"
-        android:gravity="center"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:text="Pivot! Pivot! Pivot!"
-        android:textColor="@color/white" />
-</RelativeLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/frame" />
+
+        <TextView
+            android:id="@+id/question_view"
+            android:layout_width="match_parent"
+            android:layout_height="370dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:autoSizeMaxTextSize="25sp"
+            android:autoSizeMinTextSize="18sp"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/friendsfont"
+            android:gravity="center"
+            android:paddingStart="80dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="60dp"
+            android:paddingEnd="90dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="80dp"
+            android:text="Pivot! Pivot! Pivot!"
+            android:textColor="@color/white" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="10dp"
         android:gravity="center">
 
@@ -111,7 +106,8 @@
                 android:background="@drawable/default_option_bkg"
                 android:fontFamily="@font/friendsfont"
                 android:text="Joe"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textColor="@color/white"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/optionB"
@@ -122,7 +118,8 @@
                 android:background="@drawable/default_option_bkg"
                 android:fontFamily="@font/friendsfont"
                 android:text="Rachel"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textColor="@color/white"/>
 
         </LinearLayout>
 
@@ -141,7 +138,8 @@
                 android:background="@drawable/default_option_bkg"
                 android:fontFamily="@font/friendsfont"
                 android:text="Chandler"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textColor="@color/white"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/optionD"
@@ -152,7 +150,8 @@
                 android:background="@drawable/default_option_bkg"
                 android:fontFamily="@font/friendsfont"
                 android:text="Ross"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textColor="@color/white"/>
 
         </LinearLayout>
 

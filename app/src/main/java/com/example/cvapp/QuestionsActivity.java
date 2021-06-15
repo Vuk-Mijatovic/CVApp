@@ -28,7 +28,6 @@ public class QuestionsActivity extends AppCompatActivity {
 
     List<Questions> questionsList;
     TextView questionsView;
-    TextView questionNumbers;
     TextView textViewCountDownTimer;
     Button optionA;
     Button optionB;
@@ -53,7 +52,6 @@ public class QuestionsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questions);
-        questionNumbers = findViewById(R.id.questionsNumber);
         questionsView = findViewById(R.id.question_view);
         optionA = findViewById(R.id.optionA);
         optionB = findViewById(R.id.optionB);
@@ -64,6 +62,7 @@ public class QuestionsActivity extends AppCompatActivity {
         scoreBoard = getString(R.string.score_board, score);
         scoreView.setText(scoreBoard);
         playAudio = new PlayAudio(this);
+
 
         QuestionsViewModel questionsViewModel = new ViewModelProvider(this).get(QuestionsViewModel.class);
         questionsViewModel.getAllQuestions().observe(this, new Observer<List<Questions>>() {
@@ -244,7 +243,7 @@ public class QuestionsActivity extends AppCompatActivity {
         timeLeftInMillis = COUNTDOWN;
         String text = getString(R.string.question_number,
                 currentQuestionNumber, questionsList.size());
-        questionNumbers.setText(text);
+        setTitle(text);
         currentQuestion = questionsList.get(currentQuestionNumber - 1);
         questionsView.setText(currentQuestion.getQuestion());
         optionA.setText(currentQuestion.getOptionA());
