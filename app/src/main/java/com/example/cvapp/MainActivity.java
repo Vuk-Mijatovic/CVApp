@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.nav_book_listing:
                         startActivity(new Intent(MainActivity.this, BookListingActivity.class));
                         break;
+                    case R.id.nav_location:
+                        startActivity(new Intent(MainActivity.this, WhereAmIActivity.class));
                     case R.id.nav_friends_quiz:
                         startActivity(new Intent(MainActivity.this, QuizActivity.class));
                         break;

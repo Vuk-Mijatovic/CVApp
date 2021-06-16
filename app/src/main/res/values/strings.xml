@@ -21,5 +21,8 @@
     <string name="time_is_up">Time\'s Up</string>
     <string name="your_final_score">Your final score: %d </string>
     <string name="play_again">Play again?</string>
+    <string name="title_activity_my_location">Map</string>
+    <string name="i_am_here">I am here: %s</string>
+    <string name="where_am_i">Where Am I?</string>
 
 </resources>

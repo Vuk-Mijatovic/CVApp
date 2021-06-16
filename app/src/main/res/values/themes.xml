@@ -23,7 +23,12 @@
 
     </style>
 
-    <style name="Theme.CVApp.NoActionBar" >
+    <style name="Theme.CVApp.Location" parent="Theme.CVApp">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@color/bar_teal</item>    </style>
+
+    <style name="Theme.CVApp.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>

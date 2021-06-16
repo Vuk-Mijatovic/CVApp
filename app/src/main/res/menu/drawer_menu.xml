@@ -6,13 +6,16 @@
     <group android:checkableBehavior="single">
         <item android:id="@+id/nav_book_listing"
             android:icon="@drawable/ic_baseline_menu_book_24"
-            android:title="API integration">
+            android:title="API Integration">
 
         </item>
         <item
             android:id="@+id/nav_friends_quiz"
             android:title="Room Database Integration"
             android:icon="@drawable/room_ic"/>
-
+        <item
+            android:id="@+id/nav_location"
+            android:icon="@drawable/ic_baseline_location_on_24"
+            android:title="Goole Map Integration" />
     </group>
 </menu>

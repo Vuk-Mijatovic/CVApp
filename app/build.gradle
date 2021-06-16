@@ -2,11 +2,6 @@ plugins {
     id 'com.android.application'
 }
 
-repositories {
-    jcenter()
-}
-
-
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -31,6 +26,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -54,7 +52,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation "com.squareup.okhttp3:okhttp:4.9.0"
-    testImplementation 'junit:junit:4.13.2'
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
+    implementation 'com.intellij:annotations:12.0@jar'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
