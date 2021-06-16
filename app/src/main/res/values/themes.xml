@@ -16,6 +16,13 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="Theme.CVApp.Quiz" >
+        <item name="colorPrimary">#9575CD</item>
+        <item name="colorPrimaryVariant">#673AB7</item>
+        <item name="colorOnPrimary">@color/black</item>
+
+    </style>
+
     <style name="Theme.CVApp.NoActionBar" >
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

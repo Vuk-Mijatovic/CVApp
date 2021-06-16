@@ -21,6 +21,17 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.CVApp.NoActionBar">
+        <activity
+            android:name=".QuestionsActivity"
+            android:parentActivityName=".QuizActivity"
+            android:theme="@style/Theme.CVApp.Quiz" />
+        <activity
+            android:name=".QuizActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.CVApp.Quiz" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.CVApp.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

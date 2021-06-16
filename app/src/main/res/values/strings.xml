@@ -15,4 +15,11 @@
     <string name="order_by_relevance_value">relevance</string>
     <string name="order_by_most_recent_value">newest</string>
     <string name="order_by_most_recent_label">Most Recent</string>
+    <string name="main_question">Can you match the quote with the character?</string>
+    <string name="question_number">Question: %1d/%2d</string>
+    <string name="score_board">Score: %d</string>
+    <string name="time_is_up">Time\'s Up</string>
+    <string name="your_final_score">Your final score: %d </string>
+    <string name="play_again">Play again?</string>
+
 </resources>
