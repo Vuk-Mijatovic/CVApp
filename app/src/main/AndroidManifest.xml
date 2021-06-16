@@ -19,9 +19,6 @@
             android:theme="@style/Theme.CVApp"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".MainActivity"
-            android:theme="@style/Theme.CVApp.NoActionBar">
-        <activity
             android:name=".QuestionsActivity"
             android:parentActivityName=".QuizActivity"
             android:theme="@style/Theme.CVApp.Quiz" />
