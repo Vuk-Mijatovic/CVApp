@@ -27,24 +27,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.nav_book_listing:
-                        break;
-                    case R.id.nav_friends_quiz:
-                        startActivity(new Intent(MainActivity.this, QuizActivity.class));
-                        break;
-                }
-                return true;
-            }
-        });
-
-        drawer = findViewById(R.id.drawer_layout);
-
-        navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+         drawer = findViewById(R.id.drawer_layout);
+         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
