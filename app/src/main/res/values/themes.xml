@@ -20,7 +20,11 @@
         <item name="colorPrimary">#9575CD</item>
         <item name="colorPrimaryVariant">#673AB7</item>
         <item name="colorOnPrimary">@color/black</item>
+    </style>
 
+    <style name="Theme.CVApp.Crash">
+        <item name="colorPrimary">#ff833a</item>
+        <item name="colorPrimaryVariant">#e65100</item>
     </style>
 
     <style name="Theme.CVApp.Location" parent="Theme.CVApp">
