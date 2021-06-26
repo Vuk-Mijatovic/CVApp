@@ -25,5 +25,6 @@
     <string name="i_am_here">I am here: %s</string>
     <string name="where_am_i">Where Am I?</string>
     <string name="enable_location">Please enable location services to proceed.</string>
+    <string name="crash_me">Crash me!</string>
 
 </resources>
