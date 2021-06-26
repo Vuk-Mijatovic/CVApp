@@ -9,8 +9,8 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,6 +37,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class MyLocationActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -73,6 +74,7 @@ public class MyLocationActivity extends FragmentActivity implements OnMapReadyCa
     }
 
     private void findMe() {
+
         if (ActivityCompat.checkSelfPermission(MyLocationActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MyLocationActivity.this, new String[]
                             {Manifest.permission.ACCESS_FINE_LOCATION},
@@ -82,17 +84,52 @@ public class MyLocationActivity extends FragmentActivity implements OnMapReadyCa
                 setLocationListener();
             }
             if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 20, locationListener);
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+                    locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, locationListener, null);
+                } else {
+                    locationManager.getCurrentLocation(LocationManager.GPS_PROVIDER, null, MyLocationActivity.this.getMainExecutor(), new Consumer<Location>() {
+                        @Override
+                        public void accept(Location location) {
+                            setPinOnMap(location);
+                        }
+                    });
+                }
+            } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+                locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, locationListener, null);
             } else {
-                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 20, locationListener);
+                locationManager.getCurrentLocation(LocationManager.NETWORK_PROVIDER, null, MyLocationActivity.this.getMainExecutor(), new Consumer<Location>() {
+                    @Override
+                    public void accept(Location location) {
+                        setPinOnMap(location);
+                    }
+                });
             }
         }
+
     }
+
+
+    //I realized that requestSingleUpdate is better option for this use case
+//    private void findMe() {
+//        if (ActivityCompat.checkSelfPermission(MyLocationActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(MyLocationActivity.this, new String[]
+//                            {Manifest.permission.ACCESS_FINE_LOCATION},
+//                    REQUEST_LOCATION_PERMISSION);
+//        } else {
+//            if (locationListener == null) {
+//                setLocationListener();
+//            }
+//            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+//                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+//            } else {
+//                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+//            }
+//        }
+//    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull @org.jetbrains.annotations.NotNull String[] permissions, @NonNull @org.jetbrains.annotations.NotNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        Log.i("RequestPermision: ", "I am called.");
         if (ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -100,9 +137,25 @@ public class MyLocationActivity extends FragmentActivity implements OnMapReadyCa
                 setLocationListener();
             }
             if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+                    locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, locationListener, null);
+                } else {
+                    locationManager.getCurrentLocation(LocationManager.GPS_PROVIDER, null, MyLocationActivity.this.getMainExecutor(), new Consumer<Location>() {
+                        @Override
+                        public void accept(Location location) {
+                            setPinOnMap(location);
+                        }
+                    });
+                }
+            } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+                locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, locationListener, null);
             } else {
-                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+                locationManager.getCurrentLocation(LocationManager.NETWORK_PROVIDER, null, MyLocationActivity.this.getMainExecutor(), new Consumer<Location>() {
+                    @Override
+                    public void accept(Location location) {
+                        setPinOnMap(location);
+                    }
+                });
             }
         }
     }
@@ -111,35 +164,39 @@ public class MyLocationActivity extends FragmentActivity implements OnMapReadyCa
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(@NonNull Location location) {
-                double latitude = location.getLatitude();
-                double longitude = location.getLongitude();
-                LatLng latLng = new LatLng(latitude, longitude);
-                Geocoder geocoder = new Geocoder(getApplicationContext());
-                try {
-                    List<Address> addressList = geocoder.getFromLocation(latitude, longitude, 1);
-                    String adress = addressList.get(0).getAddressLine(0) + " ";
-                    if (marker != null) {
-                        marker.remove();
-                    }
-                    marker = googleMap.addMarker(new MarkerOptions().position(latLng).title(adress));
-                    googleMap.setMaxZoomPreference(20);
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
-                } catch (IOException e) {
-                    //todo handle the exception
-                    e.printStackTrace();
-                }
+                setPinOnMap(location);
             }
-
-            @Override
-            public void onProviderDisabled(@NonNull String provider) {
-                checkLocationServices();
-            }
-
-            @Override
-            public void onProviderEnabled(@NonNull String provider) {
-                checkLocationServices();
-            }
+            //Not needed for singleUpdate
+//            @Override
+//            public void onProviderDisabled(@NonNull String provider) {
+//                checkLocationServices();
+//            }
+//
+//            @Override
+//            public void onProviderEnabled(@NonNull String provider) {
+//                checkLocationServices();
+//            }
         };
+    }
+
+
+    private void setPinOnMap(Location location) {
+        double latitude = location.getLatitude();
+        double longitude = location.getLongitude();
+        LatLng latLng = new LatLng(latitude, longitude);
+        Geocoder geocoder = new Geocoder(getApplicationContext());
+        try {
+            List<Address> addressList = geocoder.getFromLocation(latitude, longitude, 1);
+            String adress = addressList.get(0).getAddressLine(0) + " ";
+            if (marker != null) {
+                marker.remove();
+            }
+            marker = googleMap.addMarker(new MarkerOptions().position(latLng).title(adress));
+            googleMap.setMaxZoomPreference(20);
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void checkLocationServices() {
