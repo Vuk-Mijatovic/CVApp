@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/title_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:fontFamily="sans-serif"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginTop="12dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/knez_mihailova"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_view" />
+
+        <TextView
+            android:id="@+id/short_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <TextView
+            android:id="@+id/address_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="4dp"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/short_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:layout_constraintVertical_bias="1.0"
+            app:layout_goneMarginEnd="10dp" />
+
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/short_description"
+            tools:layout_editor_absoluteX="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/description_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Knez Mihailova Street is the nicest street in the whol world.dlkjas l
+lkasjlkad lkjslkjalskdjlkaj alksdjlaksjdlaksjd lakj lkjslakjdalskdjalskdjalskdj l
+lksjdlakjdlaksdjlaksdjalkdjalskdjalskdjalskdjalskdjalkdsjal  laksjdlaksjd lkjadslkjd a
+lkajdlaksdjalksdjlaksdjalk
+ksjadlkjdaldskl aslkdja. ;lal;sdk;lk asdjoeiijflsdkfjlskdfj lsdkfjlsdkfj sldskfjsldkfj ldkfjslkfj
+sldkfjsldkfj lkdsjfls
+kldsfjlsdkfjsldkfjlsdkfjsl dfk lskdjflksdjf lskfjsldkfjdslkfjsldkfjs fjewoifjosfjdslkfjsl kfjsdlkfj sldkfjsldkfjlsdkjflsdkf
+lsdfjldskfjlsdk lsdkfjdslkfjsdlkfjsldkf  ldskjflskdfj
+
+sldkfjlsdkfjsldkfjlskdjflsdkfjlsdkfjlskdfjs ldskfjlskdjf
+sdflkjsdlfkjsdlk fjs dlkfjsld lskdjflskjf0wsifjw0esofjwifsldkjfsl lskdjflsjf "
+                    android:textSize="22sp" />
+            </LinearLayout>
+
+
+        </ScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

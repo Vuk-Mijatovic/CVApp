@@ -25,5 +25,23 @@
     <string name="i_am_here">I am here: %s</string>
     <string name="where_am_i">Where Am I?</string>
     <string name="enable_location">Please enable location services to proceed.</string>
+    <string name="kalemegdan_name">Belgrade Fortress</string>
+    <string name="st_save_name">Temple of Saint Sava</string>
+    <string name="knez_mihailova_name">Knez Mihailova Street</string>
+    <string name="kalemegdan_description">Old fortress in the heart of Belgrade.</string>
+    <string name="kalemegdan_contact">Kalemegdan bb</string>
+    <string name="st_sava_description">Balkans\' biggest (and the world\'s second biggest) Orthodox church.</string>
+    <string name="st_sava_contact">Krušedolska 2a</string>
+    <string name="knez_mihailova_description">Main pedestrian  zone and one of the oldest landmarks of the city.</string>
+    <string name="knez_mihailova_contact">Pedestrian zone</string>
+    <string name="yugoslavia_name">Museum of Yugoslavia</string>
+    <string name="yugoslavia_contact">Botićeva 6</string>
+    <string name="yugoslavia_description">"An invaluable collection of 200,000 artefacts representing the fascinating history of Yugoslavia. "</string>
+    <string name="national_name">National Museum</string>
+    <string name="national_contact">Trg Republike 1a</string>
+    <string name="national_description">The museum\'s latest €12 million makeover frames some 5000 sq metres of exhibition space over three floors.</string>
+    <string name="contemporary_name">Museum of Contemporary Art</string>
+    <string name="contemporary_contact">Ušće 10</string>
+    <string name="contemporary_description">Recently renovated museum is a treasure trove of 20th-century art from the ex-Yugoslav cultural space.</string>
 
 </resources>

@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.nav_friends_quiz:
                         startActivity(new Intent(MainActivity.this, QuizActivity.class));
                         break;
+                    case R.id.nav_guide:
+                        startActivity(new Intent(MainActivity.this, BelgradeGuide.class));
                 }
                 return true;
             }

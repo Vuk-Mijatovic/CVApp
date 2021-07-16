@@ -126,3 +126,6 @@ public class BookListingActivity extends MainActivity {
         });
     }
 }
+
+//TODO fix design, margins, paddings, and maybe add some
+// description like searh for a book

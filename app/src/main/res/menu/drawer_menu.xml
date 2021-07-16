@@ -4,11 +4,10 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item android:id="@+id/nav_book_listing"
+        <item
+            android:id="@+id/nav_book_listing"
             android:icon="@drawable/ic_baseline_menu_book_24"
-            android:title="API Integration">
-
-        </item>
+            android:title="API Integration" />
         <item
             android:id="@+id/nav_friends_quiz"
             android:title="Room Database Integration"
@@ -17,5 +16,9 @@
             android:id="@+id/nav_location"
             android:icon="@drawable/ic_baseline_location_on_24"
             android:title="Goole Map Integration" />
+        <item
+            android:id="@+id/nav_guide"
+            android:title="Dual Pane Layout"
+            android:icon="@drawable/ic_baseline_tablet_24" />
     </group>
 </menu>
