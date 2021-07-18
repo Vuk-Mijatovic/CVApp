@@ -71,4 +71,4 @@ public class DetailFragment extends Fragment {
     }
 }
 
-//todo add lorem ipsem to constructor? and add more items to list, finish dual pane set up
+//todo add lorem ipsem to constructor? and add more items to list, why scroll in not working in tablet

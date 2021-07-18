@@ -6,14 +6,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 
 import org.jetbrains.annotations.NotNull;
 
-public class BelgradeGuide extends AppCompatActivity {
+public class BelgradeGuide extends AppCompatActivity implements AttractionFragment.AttractionFragmentListener {
 
     public static boolean isDualPane;
+    FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +24,7 @@ public class BelgradeGuide extends AppCompatActivity {
 
         Fragment attractionFragment = new AttractionFragment();
         Fragment detailFragment = new DetailFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager = getSupportFragmentManager();
 
         View detailFragmentTablet = findViewById(R.id.detail_fragment_tablet);
         isDualPane = detailFragmentTablet != null;
@@ -41,5 +43,20 @@ public class BelgradeGuide extends AppCompatActivity {
             fragmentTransaction.replace(R.id.fragment_container, attractionFragment);
             fragmentTransaction.commit();
         }
+    }
+
+    @Override
+    public void onInputSent(Attraction currentAttraction) {
+        Fragment detailFragment = DetailFragment.newInstance(currentAttraction.getTitle(),
+                currentAttraction.getShortDescription(), currentAttraction.getAddress(),
+                currentAttraction.getImageResourceId());
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        if (isDualPane) {
+            fragmentTransaction.replace(R.id.detail_fragment_tablet, detailFragment);
+        } else {
+            fragmentTransaction.replace(R.id.fragment_container, detailFragment);
+        }
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }
