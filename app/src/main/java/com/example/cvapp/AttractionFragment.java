@@ -57,7 +57,11 @@ public class AttractionFragment extends Fragment implements AttractionAdapter.It
                 attraction.getShortDescription(), attraction.getAddress(), attraction.getImageResourceId());
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, detailFragment);
+        if (BelgradeGuide.isDualPane) {
+        fragmentTransaction.replace(R.id.detail_fragment_tablet, detailFragment);
+        } else {
+            fragmentTransaction.replace(R.id.fragment_container, detailFragment);
+        }
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 

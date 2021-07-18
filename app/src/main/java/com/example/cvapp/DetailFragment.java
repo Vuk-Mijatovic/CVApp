@@ -48,7 +48,10 @@ public class DetailFragment extends Fragment {
             title = getArguments().getString(TITLE);
             address = getArguments().getString(ADDRESS);
             imageId = getArguments().getInt(IMAGE_ID);
-
+        } else {
+            title = getString(R.string.knez_mihailova_name);
+            address = getString(R.string.knez_mihailova_contact);
+            imageId = R.drawable.knez_mihailova;
         }
     }
 
