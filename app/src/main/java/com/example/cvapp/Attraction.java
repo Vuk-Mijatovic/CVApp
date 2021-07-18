@@ -34,9 +34,10 @@ public class Attraction {
         this.description = description;
     }
 
-    public Attraction(String title, String shortDescription, String address){
+    public Attraction(String title, String shortDescription, String address, int imageResourceId){
         this.title = title;
         this.shortDescription = shortDescription;
         this.address = address;
+        this.imageResourceId = imageResourceId;
     }
 }

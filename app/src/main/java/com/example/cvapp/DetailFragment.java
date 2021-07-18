@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,33 +17,26 @@ import android.view.ViewGroup;
  */
 public class DetailFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String TITLE = "title";
+    private static final String SHORT_DESC = "shortDesc";
+    private static final String ADDRESS = "address";
+    private static final String IMAGE_ID = "imageId";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String title;
+    private String address;
+    private int imageId;
 
     public DetailFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DetailFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static DetailFragment newInstance(String param1, String param2) {
+    public static DetailFragment newInstance(String title, String shortDesc, String address, int imageId) {
         DetailFragment fragment = new DetailFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(TITLE, title);
+        args.putString(SHORT_DESC, shortDesc);
+        args.putString(ADDRESS, address);
+        args.putInt(IMAGE_ID, imageId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -50,15 +45,27 @@ public class DetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            title = getArguments().getString(TITLE);
+            address = getArguments().getString(ADDRESS);
+            imageId = getArguments().getInt(IMAGE_ID);
+
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail, container, false);
+        View view = inflater.inflate(R.layout.fragment_detail, container, false);
+
+        TextView titleView = view.findViewById(R.id.title_view);
+        titleView.setText(title);
+        TextView addressView = view.findViewById(R.id.address_view);
+        addressView.setText(address);
+        ImageView imageView = view.findViewById(R.id.imageView);
+        imageView.setImageResource(imageId);
+
+        return view;
     }
 }
+
+//todo add lorem ipsem to constructor? and add more items to list, finish dual pane set up

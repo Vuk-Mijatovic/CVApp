@@ -17,13 +17,15 @@ import java.util.List;
 
 public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.AttractionViewHolder> {
     private List<Attraction> attractions;
+    private ItemClickListener clickListener;
 
-    public void addAttraction(String title, String shortDescription, String address) {
-        attractions.add(new Attraction(title, shortDescription, address));
+    public void addAttraction(String title, String shortDescription, String address, int imageResourceId) {
+        attractions.add(new Attraction(title, shortDescription, address, imageResourceId));
     }
 
-    public AttractionAdapter() {
+    public AttractionAdapter(ItemClickListener clickListener) {
         attractions = new ArrayList<>();
+        this.clickListener = clickListener;
     }
 
     @NonNull
@@ -40,6 +42,13 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.At
         holder.titleView.setText(attractions.get(position).getTitle());
         holder.shortDescriptionView.setText(attractions.get(position).getShortDescription());
         holder.addressView.setText(attractions.get(position).getAddress());
+        holder.imageView.setImageResource(attractions.get(position).getImageResourceId());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.onItemClick(attractions.get(position));
+            }
+        });
 
     }
 
@@ -60,8 +69,12 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.At
             this.titleView = itemView.findViewById(R.id.itemTitleView);
             this.shortDescriptionView = itemView.findViewById(R.id.itemDescriptionView);
             this.addressView = itemView.findViewById(R.id.itemAddressView);
-            this.imageView = itemView.findViewById(R.id.imageView);
-
+            this.imageView = itemView.findViewById(R.id.itemImageView);
         }
     }
+
+    public interface ItemClickListener {
+        public void onItemClick(Attraction attraction);
+    }
+
 }
