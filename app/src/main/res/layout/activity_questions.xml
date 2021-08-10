@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_question"
     android:layout_width="match_parent"
@@ -53,36 +55,38 @@
         android:textColor="@color/white"
         android:textSize="20sp" />
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="370dp">
 
         <ImageView
+            android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/frame" />
 
         <TextView
             android:id="@+id/question_view"
-            android:layout_width="match_parent"
-            android:layout_height="370dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp"
+            android:layout_width="156dp"
+            android:layout_height="219dp"
+            android:layout_marginStart="124dp"
+            android:layout_marginTop="76dp"
+            android:layout_marginEnd="131dp"
+            android:layout_marginBottom="74dp"
             android:autoSizeMaxTextSize="25sp"
             android:autoSizeMinTextSize="18sp"
             android:autoSizeTextType="uniform"
             android:fontFamily="@font/friendsfont"
             android:gravity="center"
-            android:paddingStart="80dp"
             android:paddingLeft="10dp"
-            android:paddingTop="60dp"
-            android:paddingEnd="90dp"
             android:paddingRight="10dp"
-            android:paddingBottom="80dp"
             android:text="Pivot! Pivot! Pivot!"
-            android:textColor="@color/white" />
-    </RelativeLayout>
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+            app:layout_constraintEnd_toEndOf="@+id/imageView2"
+            app:layout_constraintStart_toStartOf="@+id/imageView2"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
