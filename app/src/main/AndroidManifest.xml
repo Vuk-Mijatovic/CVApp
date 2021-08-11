@@ -17,6 +17,10 @@
         android:theme="@style/Theme.CVApp">
         <activity android:name=".BelgradeGuide"></activity>
         <activity
+            android:name=".CrashMeActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.CVApp.Crash"/>
+        <activity
             android:name=".BookListingActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/Theme.CVApp" />

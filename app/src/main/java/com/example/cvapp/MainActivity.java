@@ -10,6 +10,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -40,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.nav_friends_quiz:
                         startActivity(new Intent(MainActivity.this, QuizActivity.class));
+                        break;
+                    case R.id.nav_crash_me:
+                        startActivity(new Intent(MainActivity.this, CrashMeActivity.class));
                         break;
                     case R.id.nav_guide:
                         startActivity(new Intent(MainActivity.this, BelgradeGuide.class));

@@ -17,6 +17,10 @@
             android:icon="@drawable/ic_baseline_location_on_24"
             android:title="Goole Map Integration" />
         <item
+            android:id="@+id/nav_crash_me"
+            android:icon="@drawable/ic_baseline_local_fire_department_24"
+            android:title="Firebase Crashlytics" />
+        <item
             android:id="@+id/nav_guide"
             android:title="Dual Pane Layout"
             android:icon="@drawable/ic_baseline_tablet_24" />
