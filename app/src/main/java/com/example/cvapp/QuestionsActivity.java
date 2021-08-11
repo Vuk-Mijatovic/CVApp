@@ -488,3 +488,6 @@ public class QuestionsActivity extends AppCompatActivity {
     }
 }
 //TODO Fix final dialog apearance
+//TODO Fix question view to fit text in all phones
+// TODO set orientetion to portrait
+
