@@ -3,7 +3,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="search">Search</string>
-    <string name="enter_keyword">Enter keyword</string>
+    <string name="enter_keyword">Enter keyword to search books</string>
     <string name="no_internet_connection">No internet connection.</string>
     <string name="no_books_found">No books found.Try diferent keyword.</string>
     <string name="settings_menu_item">Settings</string>
@@ -45,5 +45,8 @@
     <string name="contemporary_description">Recently renovated museum is a treasure trove of 20th-century art from the ex-Yugoslav cultural space.</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a nulla eu massa pretium consequat sit amet non libero. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec lectus lacus, imperdiet in metus eu, ornare interdum risus. Phasellus eu posuere augue, quis ultricies ipsum. In ut fringilla arcu. Vivamus nec quam eu est fermentum maximus. Donec molestie feugiat sodales. Proin posuere varius mi, sit amet tempus dolor euismod nec. In sed rhoncus nibh. Integer neque dolor, pretium id eros vel, rutrum feugiat metus. Praesent at vulputate augue, sit amet fermentum sapien. Fusce blandit massa in risus condimentum vulputate. Proin molestie vel dui non pharetra. Aenean sed magna purus. In at lacus id nulla pellentesque cursus ac vel dui. Nunc sit amet justo ante. Suspendisse arcu tortor, mollis a interdum ac, semper vel purus. Pellentesque lobortis posuere nibh in accumsan. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed sed rhoncus urna. Vivamus non consectetur nulla, eu ultricies sem. Duis vitae porttitor turpis. Nulla sed lectus at leo condimentum sollicitudin at a tortor. Integer a nisi ullamcorper, tempor augue vel, ornare lorem. Nullam vitae commodo sem. Quisque tristique arcu et tristique tempus. Integer semper ac metus at interdum. Praesent pulvinar, ipsum quis viverra dictum, magna nulla sollicitudin nunc, et lobortis nibh lorem vestibulum ante. Nulla facilisi.</string>
     <string name="crash_me">Crash me!</string>
+    <string name="about_project">Showcase app made to demonstrate some of the skills I acquired while learning and practicing Android development. It consists of five parts: \n\t• Google Books search tool demonstrating API integration using Retrofit and RecyclerView  \n\t• Who Said it - Trivia quiz demonstrating use of SQLite database and Room library \n\t• Where Am I - Tool demonstrating Google Map integration \n\t• Demonstration of Firebase Crashlytics implementation \n\t• Belgrade Guide - Showcase for fragment implementation and dual pane UI</string>
+    <string name="skills">Android, Java, SQL, Git, Ruby On Rails</string>
+    <string name="details">+381 64 66 27 554 \nvukmijatovic@gmail.com \nhttps://github.com/Vuk-Mijatovic</string>
 
 </resources>
